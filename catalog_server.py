@@ -93,6 +93,16 @@ def showCategory(category_id):
         return render_template('catalog.html', categories=categories, category=category, items=items)
 
 # New Category
+@login_required
+def newCategory():
+    if request.method == 'POST':
+        newCategory = Category(name=request.form['name'], user_id=login_session['user_id'])
+        session.add(newCategory)
+        flash('New Category %s Successfully Created!' % newCategory.name)
+        session.commit()
+        return redirect(url_for('showCategory'))
+    else:
+        return render_template('newCategory.html')
 
 # Edit Category
 
