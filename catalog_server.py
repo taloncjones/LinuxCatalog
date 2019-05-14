@@ -68,6 +68,16 @@ def getUserID(email):
 # Category functions
 ###
 
+# Read Category and Item tables for catalog home page
+# Order items by descending item id for most recently added items
+def showCatalog():
+    categories = session.query(Category).all()
+    items = session.query(Item).order_by(Item.id.desc()).limit(10)
+    if 'username' not in login_session:
+        return render_template('publiccatalog.html', categories=categories, items=items)
+    else:
+        return render_template('catalog.html', categories=categories, items=items)
+
 ###
 # Item functions
 ###
