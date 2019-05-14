@@ -3,7 +3,7 @@
 # catalog_db.py for Udacity Course 4 Item Catalog project
 # Created by Talon Jones
 
-from sqlalchemy import Column,Integer,String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
