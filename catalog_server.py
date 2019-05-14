@@ -28,12 +28,23 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+###
+# Log in handlers
+###
+
 # Logged in decorator
 def login_required(object):
     def is_logged_in():
         if 'user_id' not in login_session:
             return redirect(url_for('login'))
     return is_logged_in
+
+# Login page
+@app.route('/login')
+def showLogin():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    login_session['state'] = state
+    return "The current session stat is %s" % login_session['state']
 
 ###
 # API functions
