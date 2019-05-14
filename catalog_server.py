@@ -17,6 +17,7 @@ import json, random, string, requests
 
 app = Flask(__name__)
 
+# Load in client id from client_secrets.json
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = 'Item Catalog Project'
@@ -26,3 +27,20 @@ engine = create_engine('sqlite:///itemcatalog.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+# Logged in decorator
+def login_required(object):
+    def is_logged_in():
+        if 'user_id' not in login_session:
+            return redirect(url_for('login'))
+    return is_logged_in
+
+# API functions
+
+# User functions
+
+# Category functions
+
+# Item functions
+
+# Login handling for FB/Google/Etc
