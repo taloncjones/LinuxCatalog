@@ -51,7 +51,10 @@ def createUser(login_session):
     user = session.query(user).filter_by(email=login_session['email']).one()
     return user.id
 
-#
+# Get user info for supplied user_id
+def getUserInfo(user_id):
+    user = session.query(User).filter_by(id=user.id).one()
+    return user
 
 ###
 # Category functions
