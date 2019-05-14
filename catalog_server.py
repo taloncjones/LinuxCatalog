@@ -39,6 +39,7 @@ def login_required(object):
 # API functions
 ###
 
+
 ###
 # User functions
 ###
@@ -64,12 +65,14 @@ def getUserID(email):
     except:
         return none
 
+
 ###
 # Category functions
 ###
 
 # Read Category and Item tables for catalog home page
 # Order items by descending item id for most recently added items
+## Show 'Add Category' and 'Add Item' buttons
 def showCatalog():
     categories = session.query(Category).all()
     items = session.query(Item).order_by(Item.id.desc()).limit(10)
@@ -79,6 +82,7 @@ def showCatalog():
         return render_template('catalog.html', categories=categories, items=items)
 
 # Read Category and Item tables for category page
+## Show 'Add Category' and 'Add Item' buttons
 def showCategory(category_id):
     categories = session.query(Category).all()
     category = session.query(Category).filter_by(id=category_id).one()
@@ -88,11 +92,19 @@ def showCategory(category_id):
     else:
         return render_template('catalog.html', categories=categories, category=category, items=items)
 
+# New Category
+
+# Edit Category
+
+# Delete Category
+
+
 ###
 # Item functions
 ###
 
 # Read Item table for item page
+## Show 'Edit' and 'Delete' buttons
 def showItem(item_id):
     item = session.query(Item).filter_by(id=item_id).one()
     creator = getUserInfo(item.user_id)
@@ -100,6 +112,13 @@ def showItem(item_id):
         return render_template('publicitem.html', item=item)
     else:
         return render_template('item.html', item=item, creator=creator)
+
+# New Item
+
+# Edit Item
+
+# Delete Item
+
 
 ###
 # Login handling for FB/Google/Etc
