@@ -83,7 +83,7 @@ def getUserID(email):
 
 @app.route('/')
 def goToCatalog():
-    return redirect(url_for('showCatalog')
+    return redirect(url_for('showCatalog'))
 
 # Read Category and Item tables for catalog home page
 # Order items by descending item id for most recently added items
