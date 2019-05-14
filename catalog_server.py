@@ -56,6 +56,14 @@ def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user.id).one()
     return user
 
+# Get user id for supplied email
+def getUserID(email):
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        return user.id
+    except:
+        return none
+
 ###
 # Category functions
 ###
