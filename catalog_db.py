@@ -13,6 +13,7 @@ Base = declarative_base()
 # Create User object with id, username, picture, and email
 class User(Base):
     __tablename__ = 'user'
+
     id = Column(Integer, primary_key=True)
     username = Column(String(32), index=True)
     picture = Column(String)
