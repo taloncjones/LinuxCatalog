@@ -38,6 +38,12 @@ def login_required(object):
 # API functions
 
 # User functions
+def createUser(login_session):
+    newUser = User(name=login_session['username'], email=login_session['email'], picture=login_session['picture'])
+    session.add(newUser)
+    session.commit()
+    user = session.query(user).filter_by(email=login_session['email']).one()
+    return user.id
 
 # Category functions
 
