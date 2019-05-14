@@ -70,9 +70,14 @@ def getUserID(email):
 # Category functions
 ###
 
+@app.route('/')
+def goToCatalog():
+    return redirect(url_for('showCatalog')
+
 # Read Category and Item tables for catalog home page
 # Order items by descending item id for most recently added items
 ## Show 'Add Category' and 'Add Item' buttons
+@app.route('/catalog')
 def showCatalog():
     categories = session.query(Category).all()
     items = session.query(Item).order_by(Item.id.desc()).limit(10)
