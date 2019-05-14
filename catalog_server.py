@@ -78,9 +78,20 @@ def showCatalog():
     else:
         return render_template('catalog.html', categories=categories, items=items)
 
+# Read Category and Item tables for category page
+def showCategory(category_id):
+    categories = session.query(Category).all()
+    category = session.query(Category).filter_by(id=category_id).one()
+    items = session.query(Item).all()
+    if 'username' not in login_session:
+        return render_template('publiccatalog.html', categories=categories, category=category, items=items)
+    else:
+        return render_template('catalog.html', categories=categories, category=category, items=items)
+
 ###
 # Item functions
 ###
+
 
 ###
 # Login handling for FB/Google/Etc
