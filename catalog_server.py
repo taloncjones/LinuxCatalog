@@ -17,6 +17,10 @@ import json, random, string, requests
 
 app = Flask(__name__)
 
+CLIENT_ID = json.loads(
+    open('client_secrets.json', 'r').read())['web']['client_id']
+APPLICATION_NAME = 'Item Catalog Project'
+
 # Connect to Database and create database session
 engine = create_engine('sqlite:///itemcatalog.db')
 Base.metadata.bind = engine
