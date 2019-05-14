@@ -92,6 +92,14 @@ def showCategory(category_id):
 # Item functions
 ###
 
+# Read Item table for item page
+def showItem(item_id):
+    item = session.query(Item).filter_by(id=item_id).one()
+    creator = getUserInfo(item.user_id)
+    if 'username' not in login_session or creator.id != login_session['user_id']:
+        return render_template('publicitem.html', item=item)
+    else:
+        return render_template('item.html', item=item, creator=creator)
 
 ###
 # Login handling for FB/Google/Etc
