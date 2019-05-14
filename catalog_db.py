@@ -88,8 +88,6 @@ class Item(Base):
         }
 
 # Create database with name x. Change x to desired db name
-engine = create_engine('sqlite:///x.db')
-
+engine = create_engine('sqlite:///itemcatalog.db')
 
 Base.metadata.create_all(engine)
-
