@@ -35,9 +35,15 @@ def login_required(object):
             return redirect(url_for('login'))
     return is_logged_in
 
+###
 # API functions
+###
 
+###
 # User functions
+###
+
+# Create a new user with the username, email, and picture pulled from login_session
 def createUser(login_session):
     newUser = User(name=login_session['username'], email=login_session['email'], picture=login_session['picture'])
     session.add(newUser)
@@ -45,8 +51,16 @@ def createUser(login_session):
     user = session.query(user).filter_by(email=login_session['email']).one()
     return user.id
 
+#
+
+###
 # Category functions
+###
 
+###
 # Item functions
+###
 
+###
 # Login handling for FB/Google/Etc
+###
