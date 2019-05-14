@@ -3,13 +3,15 @@
 # catalog_server.py for Udacity Course 4 Item Catalog project
 # Created by Talon Jones
 
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, abort, g
-from flask_httpauth import HTTPBasicAuth
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response
+from flask import session as login_session
 
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.orm import sessionmaker
 
-from catalog import Base, User, Category, Item
+from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
 
-import json
+from catalog_db import Base, User, Category, Item
+
+import json, random, string, requests
+
