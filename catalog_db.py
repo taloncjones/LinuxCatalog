@@ -52,6 +52,21 @@ class User(Base):
         user_id = data['id']
         return user_id
 
+# Create Category entry with id, name, user_id (from User), and table relationship (User)
+class Category(Base):
+    __tablename__ = 'category'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
+
+    # Return info in JSON format when serialize is called
+    @property
+    def serialize(self):
+        return {
+            #JSON info here
+        }
 
 # Create database with name x. Change x to desired db name
 engine = create_engine('sqlite:///x.db')
