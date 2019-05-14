@@ -68,6 +68,25 @@ class Category(Base):
             #JSON info here
         }
 
+# Create Item entry with the following info and table relationships
+class Item(Base):
+    __tablename__ = 'item'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(64), nullable=False)
+    description = Column(String(250), nullable=False)
+    category_id = Column(Integer, ForeignKey('category.id'))
+    category = relationship(Category)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
+
+    # Return info in JSON format when serialize is called
+    @property
+    def serialize(self):
+        return {
+            #JSON info here
+        }
+
 # Create database with name x. Change x to desired db name
 engine = create_engine('sqlite:///x.db')
 
