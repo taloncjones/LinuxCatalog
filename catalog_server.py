@@ -110,7 +110,10 @@ def goToCategory(category_id):
 @app.route('/catalog/<string:category_name>/items')
 def showCategory(category_name):
     categories = session.query(Category).all()
-    category = session.query(Category).filter_by(name=category_name).one()
+    try:
+        category = session.query(Category).filter_by(name=category_name).one()
+    except:
+        abort(404)
     items = session.query(Item).all()
     if 'username' not in login_session:
         return render_template('publiccatalog.html', categories=categories, category=category, items=items)
