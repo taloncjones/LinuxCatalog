@@ -114,7 +114,7 @@ def showCategory(category_name):
         category = session.query(Category).filter_by(name=category_name).one()
     except:
         abort(404)
-    items = session.query(Item).all()
+    items = session.query(Item).filter_by(category_id=category.id).all()
     if 'username' not in login_session:
         return render_template('publiccatalog.html', categories=categories, category=category, items=items)
     else:
