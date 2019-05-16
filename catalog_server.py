@@ -142,9 +142,22 @@ def goToEditCategory(category_id):
         abort(404)
     return redirect(url_for('editCategory', category_name=category.name))
 
-@app.route('/catalog/<string:category_name>/edit')
+@app.route('/catalog/<string:category_name>/edit', methods=['GET', 'POST'])
+@login_required
 def editCategory(category_name):
-
+    try:
+        editCategory = session.query(Category).filter_by(name=category_name).one()
+    except:
+        abort(404)
+    if editCategory.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
+    if request.method == 'POST':
+        if request.form['name']:
+            editCategory.name = request.form['name']
+            flash('Category Successfully Renamed: %s' % editCategory.name, 'success')
+            return redirect(url_for('showCatalog'))
+    else:
+        return render_template('editCategory.hmtl', category=editCategory)
     return
 # Delete Category
 
