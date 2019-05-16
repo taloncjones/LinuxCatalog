@@ -81,13 +81,12 @@ def getUserID(email):
 # Category functions
 ###
 
+# Read Category and Item tables for catalog home page
+# Order items by descending item id for most recently added items
 @app.route('/')
 def goToCatalog():
     return redirect(url_for('showCatalog'))
 
-# Read Category and Item tables for catalog home page
-# Order items by descending item id for most recently added items
-## Show 'Add Category' and 'Add Item' buttons
 @app.route('/catalog')
 def showCatalog():
     categories = session.query(Category).all()
@@ -98,7 +97,10 @@ def showCatalog():
         return render_template('catalog.html', categories=categories, items=items)
 
 # Read Category and Item tables for category page
-## Show 'Add Category' and 'Add Item' buttons
+@app.route('/catalog/<int:category_id>')
+def goToCategory():
+    return redirect(url_for('showCategory'))
+
 @app.route('/catalog/<int:category_id>/items')
 def showCategory(category_id):
     categories = session.query(Category).all()
