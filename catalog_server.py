@@ -36,7 +36,7 @@ session = DBSession()
 def login_required(object):
     def is_logged_in():
         if 'user_id' not in login_session:
-            return redirect(url_for('login'))
+            return redirect(url_for('showLogin'))
     return is_logged_in
 
 # Login page
@@ -121,6 +121,7 @@ def showCategory(category_name):
         return render_template('catalog.html', categories=categories, category=category, items=items)
 
 # New Category
+@app.route('/catalog/new', methods=['GET', 'POST'])
 @login_required
 def newCategory():
     if request.method == 'POST':
