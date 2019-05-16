@@ -98,13 +98,19 @@ def showCatalog():
 
 # Read Category and Item tables for category page
 @app.route('/catalog/<int:category_id>')
-def goToCategory(category_id):
-    return redirect(url_for('showCategory', category_id=category_id))
-
 @app.route('/catalog/<int:category_id>/items')
-def showCategory(category_id):
+def goToCategory(category_id):
+    try:
+        category = session.query(Category).filter_by(id=category_id).one()
+    except:
+        abort(404)
+    return redirect(url_for('showCategory', category_name=category.name))
+
+@app.route('/catalog/<string:category_name>')
+@app.route('/catalog/<string:category_name>/items')
+def showCategory(category_name):
     categories = session.query(Category).all()
-    category = session.query(Category).filter_by(id=category_id).one()
+    category = session.query(Category).filter_by(name=category_name).one()
     items = session.query(Item).all()
     if 'username' not in login_session:
         return render_template('publiccatalog.html', categories=categories, category=category, items=items)
