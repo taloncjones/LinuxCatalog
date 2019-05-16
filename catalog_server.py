@@ -99,6 +99,7 @@ def showCatalog():
 
 # Read Category and Item tables for category page
 ## Show 'Add Category' and 'Add Item' buttons
+@app.route('/catalog/<int:category_id>/items')
 def showCategory(category_id):
     categories = session.query(Category).all()
     category = session.query(Category).filter_by(id=category_id).one()
