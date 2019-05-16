@@ -134,7 +134,18 @@ def newCategory():
         return render_template('newCategory.html')
 
 # Edit Category
+@app.route('/catalog/<int:category_id>/edit')
+def goToEditCategory(category_id):
+    try:
+        category = session.query(Category).filter_by(id=category_id).one()
+    except:
+        abort(404)
+    return redirect(url_for('editCategory', category_name=category.name))
 
+@app.route('/catalog/<string:category_name>/edit')
+def editCategory(category_name):
+
+    return
 # Delete Category
 
 
