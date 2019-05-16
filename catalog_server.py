@@ -3,7 +3,7 @@
 # catalog_server.py for Udacity Course 4 Item Catalog project
 # Created by Talon Jones
 
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response, abort
 from flask import session as login_session
 
 from sqlalchemy import create_engine
@@ -98,8 +98,8 @@ def showCatalog():
 
 # Read Category and Item tables for category page
 @app.route('/catalog/<int:category_id>')
-def goToCategory():
-    return redirect(url_for('showCategory'))
+def goToCategory(category_id):
+    return redirect(url_for('showCategory', category_id=category_id))
 
 @app.route('/catalog/<int:category_id>/items')
 def showCategory(category_id):
