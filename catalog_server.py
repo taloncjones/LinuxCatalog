@@ -99,7 +99,7 @@ def showCatalog():
 # Read Category and Item tables for category page
 @app.route('/catalog/<int:category_id>')
 @app.route('/catalog/<int:category_id>/items')
-def goToCategory(category_id):
+def goToShowCategory(category_id):
     try:
         category = session.query(Category).filter_by(id=category_id).one()
     except:
