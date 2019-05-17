@@ -135,6 +135,7 @@ def newCategory():
         return render_template('newCategory.html')
 
 # Edit Category
+# If route contains category_id (from course script or manual input), look up category name and redirect
 @app.route('/catalog/<int:category_id>/edit')
 def goToEditCategory(category_id):
     try:
