@@ -126,11 +126,16 @@ def showCategory(category_name):
 @login_required
 def newCategory():
     if request.method == 'POST':
-        newCategory = Category(name=request.form['name'], user_id=login_session['user_id'])
-        session.add(newCategory)
-        flash('New Category %s Successfully Created!' % newCategory.name)
-        session.commit()
-        return redirect(url_for('showCategory'))
+        name = request.form['name']
+        try:
+            category = session.query(Category).filter_by(name=name).one()
+            flash('Category Already Exists!', 'error')
+        except:
+            newCategory = Category(name=name, user_id=login_session['user_id'])
+            session.add(newCategory)
+            flash('New Category %s Successfully Created!' % newCategory.name)
+            session.commit()
+        return redirect(url_for('showCategory'), category_name=name)
     else:
         return render_template('newCategory.html')
 
