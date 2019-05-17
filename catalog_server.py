@@ -171,6 +171,15 @@ def editCategory(category_name):
     return
 
 # Delete Category
+# If route contains category_id (from course script or manual input), look up category name and redirect
+@app.route('/catalog/<int:category_id>/delete')
+def goToDeleteCategory(category_id):
+    try:
+        category = session.query(Category).filter_by(id=category_id).one()
+    except:
+        abort(404)
+    return redirect(url_for('deleteCategory', category_name=category.name))
+
 @app.route('/catalog/<string:category_name>/delete', methods=['GET', 'POST'])
 #@login_required
 def deleteCategory(category_name):
