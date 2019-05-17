@@ -168,7 +168,6 @@ def editCategory(category_name):
             return redirect(url_for('showCatalog'))
     else:
         return render_template('editCategory.hmtl', category=editCategory)
-    return
 
 # Delete Category
 # If route contains category_id (from course script or manual input), look up category name and redirect
