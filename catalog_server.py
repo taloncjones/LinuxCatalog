@@ -169,7 +169,30 @@ def editCategory(category_name):
     else:
         return render_template('editCategory.hmtl', category=editCategory)
     return
+
 # Delete Category
+@app.route('/catalog/<string:category_name>/delete', methods=['GET', 'POST'])
+#@login_required
+def deleteCategory(category_name):
+    try:
+        deleteCategory = session.query(Category).filter_by(name=category_name).one()
+    except:
+        abort(404)
+    if deleteCategory.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
+    # Check if category is empty
+    deleteCategoryItems = session.query(Item).filter_by(category_id=deleteCategory.id).all()
+    if deleteCategoryItems:
+        isEmpty = False
+    else:
+        isEmpty = True
+    if request.method == 'POST':
+        session.delete(deleteCategory)
+        flash('Category %s Deleted!' % deleteCategory.name, 'success')
+        session.commit()
+        return redirect(url_for('showCatalog'))
+    else:
+        return render_template('deleteCategory.hmtl', category=deleteCategory, isEmpty=isEmpty)
 
 
 ###
