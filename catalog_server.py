@@ -97,6 +97,7 @@ def showCatalog():
         return render_template('catalog.html', categories=categories, items=items)
 
 # Read Category and Item tables for category page
+# If route contains category_id (from course script or manual input), look up category name and redirect
 @app.route('/catalog/<int:category_id>')
 @app.route('/catalog/<int:category_id>/items')
 def goToShowCategory(category_id):
