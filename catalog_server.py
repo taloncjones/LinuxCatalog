@@ -126,7 +126,7 @@ def showCategory(category_name):
 
 # New Category
 @app.route('/catalog/new', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def newCategory():
     if request.method == 'POST':
         name = request.form['name']
@@ -153,7 +153,7 @@ def goToEditCategory(category_id):
     return redirect(url_for('editCategory', category_name=category.name))
 
 @app.route('/catalog/<string:category_name>/edit', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def editCategory(category_name):
     try:
         editCategory = session.query(Category).filter_by(name=category_name).one()
