@@ -13,6 +13,8 @@ from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
 
 from catalog_db import Base, User, Category, Item
 
+from functools import wraps
+
 import json, random, string, requests
 
 app = Flask(__name__)
@@ -34,6 +36,7 @@ session = DBSession()
 
 # Logged in decorator
 def login_required(object):
+    @wraps(object)
     def is_logged_in():
         if 'user_id' not in login_session:
             return redirect(url_for('showLogin'))
