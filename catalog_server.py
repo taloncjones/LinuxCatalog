@@ -35,6 +35,7 @@ session = DBSession()
 ###
 
 # Logged in decorator
+# Checks if user is logged in. If not, redirect to showLogin page.
 def login_required(object):
     @wraps(object)
     def is_logged_in():
