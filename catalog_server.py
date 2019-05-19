@@ -84,7 +84,7 @@ def disconnect():
 
 # Create a new user with the username, email, and picture pulled from login_session
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session['email'], picture=login_session['picture'])
+    newUser = User(username=login_session['username'], email=login_session['email'], picture=login_session['picture'])
     session.add(newUser)
     session.commit()
     user = session.query(user).filter_by(email=login_session['email']).one()
