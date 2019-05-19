@@ -5,7 +5,7 @@
         </div>
         <div class="col-md-2 text-right">
             {% if session.user_id %}
-                <h2><a href="{{ url_for('newCategory') }}">+</a></h2>
+                <a href="{{ url_for('newCategory') }}"><span class="glyphicon glyphicon-plus"></span></a>
             {% endif %}
         </div>
     </div>
