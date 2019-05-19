@@ -87,7 +87,7 @@ def createUser(login_session):
     newUser = User(username=login_session['username'], email=login_session['email'], picture=login_session['picture'])
     session.add(newUser)
     session.commit()
-    user = session.query(user).filter_by(email=login_session['email']).one()
+    user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
 # Get user info for supplied user_id
