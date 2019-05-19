@@ -118,10 +118,11 @@ def goToCatalog():
 def showCatalog():
     categories = session.query(Category).all()
     items = session.query(Item).order_by(Item.id.desc()).limit(10)
-    if 'username' not in login_session:
-        return render_template('publicCatalog.html', categories=categories, items=items)
-    else:
-        return render_template('catalog.html', categories=categories, items=items)
+    return render_template('catalog.html', categories=categories, items=items)
+#    if 'username' not in login_session:
+#        return render_template('publicCatalog.html', categories=categories, items=items)
+#    else:
+#        return render_template('catalog.html', categories=categories, items=items)
 
 # Read Category and Item tables for category page
 # If route contains category_id (from course script or manual input), look up category name and redirect
