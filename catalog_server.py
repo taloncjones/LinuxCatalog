@@ -96,7 +96,7 @@ def showCatalog():
     categories = session.query(Category).all()
     items = session.query(Item).order_by(Item.id.desc()).limit(10)
     if 'username' not in login_session:
-        return render_template('publiccatalog.html', categories=categories, items=items)
+        return render_template('publicCatalog.html', categories=categories, items=items)
     else:
         return render_template('catalog.html', categories=categories, items=items)
 
@@ -121,7 +121,7 @@ def showCategory(category_name):
         abort(404)
     items = session.query(Item).filter_by(category_id=category.id).all()
     if 'username' not in login_session:
-        return render_template('publiccatalog.html', categories=categories, category=category, items=items)
+        return render_template('publicCatalog.html', categories=categories, category=category, items=items)
     else:
         return render_template('catalog.html', categories=categories, category=category, items=items)
 
