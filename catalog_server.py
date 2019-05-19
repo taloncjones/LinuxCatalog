@@ -101,7 +101,7 @@ def getUserID(email):
         user = session.query(User).filter_by(email=email).one()
         return user.id
     except:
-        return none
+        return None
 
 
 ###
