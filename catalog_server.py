@@ -48,7 +48,8 @@ def login_required(object):
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     login_session['state'] = state
-    return "The current session state is %s" % login_session['state']
+    # return "The current session state is %s" % login_session['state']
+    return render_template('login.html', STATE=state)
 
 @app.route('/disconnect')
 def disconnect():
@@ -341,4 +342,4 @@ def fbdisconnect():
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')
