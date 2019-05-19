@@ -11,29 +11,29 @@
     </div>
     <ul class="list-group">
         {% for category in categories %}
-            <li class="list-group-item">
+            <a href="{{ url_for('showCategory', category_name=category.name) }}">
                 <div class="row">
-                    <div class="col-md-12">
-                        <a href="{{ url_for('showCategory', category_name=category.name) }}">
-                            <h3>{{ category.name }}</h3>
-                        </a>
-                        {% if category.user_id == session.user_id %}
-                            <div class="text-right">
-                                <a href="{{ url_for('editCategory', category_name=category.name) }}">
-                                    <button class="btn btn-default edit">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                    </button>
-                                </a>
-                                <a href="{{ url_for('deleteCategory', category_name=category.name) }}">
-                                    <button class="btn btn-danger delete">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    <button>
-                                </a>
-                            </div>
-                        {% endif %}
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 category-list">
+                        <h3>{{ category.name }}, {{ category.user_id }}, {{ session.user_id }}</h3>
                     </div>
+                    <div class="col-md-1"></div>
                 </div>
-            </li>
+            </a>
+            {% if category.user_id == session.user_id %}
+                <div class="text-right">
+                    <a href="{{ url_for('editCategory', category_name=category.name) }}">
+                        <button class="btn btn-default edit">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
+                    </a>
+                    <a href="{{ url_for('deleteCategory', category_name=category.name) }}">
+                        <button class="btn btn-danger delete">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        <button>
+                    </a>
+                </div>
+            {% endif %}
         {% endfor %}
     </ul>
 </div>
