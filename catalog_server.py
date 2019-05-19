@@ -15,7 +15,7 @@ from catalog_db import Base, User, Category, Item
 
 from functools import wraps
 
-import json, random, string, requests
+import json, random, string, requests, httplib2
 
 app = Flask(__name__)
 
