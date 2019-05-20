@@ -316,8 +316,8 @@ def editItem(category_name):
     return
 
 # Delete Item
-@app.route('/catalog/<category_x>/<item_x>')
-def goToShowItem(category_x, item_x):
+@app.route('/catalog/<category_x>/<item_x>/delete')
+def goToDeleteItem(category_x, item_x):
     # Check if category is int or string
     if category_x.isdigit():
         # If int lookup based on category_id
@@ -345,9 +345,9 @@ def goToShowItem(category_x, item_x):
         except:
             abort(404)
     # Category and Item both contain objects at this point
-    return redirect(url_for('showItem', category_name=category.name, item_name=item.name))
+    return redirect(url_for('deleteItem', category_name=category.name, item_name=item.name))
 
-@app.route('/catalog/<string:category_name>/delete', methods=['GET', 'POST'])
+@app.route('/catalog/<string:category_name>/<string:item_name>/delete', methods=['GET', 'POST'])
 def deleteItem(category_name):
     return
 
