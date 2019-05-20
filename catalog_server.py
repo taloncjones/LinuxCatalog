@@ -144,10 +144,11 @@ def showCategory(category_name):
     except:
         abort(404)
     items = session.query(Item).filter_by(category_id=category.id).all()
-    if 'username' not in login_session:
-        return render_template('publicCatalog.html', categories=categories, category=category, items=items)
-    else:
-        return render_template('catalog.html', categories=categories, category=category, items=items)
+    return render_template('catalog.html', categories=categories, category=category, items=items)
+#    if 'username' not in login_session:
+#        return render_template('publicCatalog.html', categories=categories, category=category, items=items)
+#    else:
+#        return render_template('catalog.html', categories=categories, category=category, items=items)
 
 # New Category
 @app.route('/catalog/new', methods=['GET', 'POST'])
@@ -243,6 +244,13 @@ def showItem(item_id):
         return render_template('item.html', item=item, creator=creator)
 
 # New Item
+@app.route('/catalog/<int:category_id>/new', methods=['GET', 'POST'])
+def goToNewItem(category_id):
+    return
+
+@app.route('/catalog/<string:category_name>/new', methods=['GET', 'POST'])
+def newItem(category_name):
+    return
 
 # Edit Item
 
