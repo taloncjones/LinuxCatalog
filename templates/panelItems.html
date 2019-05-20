@@ -10,11 +10,11 @@
     </div>
     <ul class="list-group">
         {% for item in items %}
-            <a href="{{ url_for('goToShowCategory', category_id=item.category_id) }}">
+            <a href="{{ url_for('goToShowItem', category_x=item.category_id, item_x=item.name) }}">
                 <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-10 category-list">
-                        <h3>{{ item.name }}, {{ item.user_id }}, {{ session.user_id }}</h3>
+                        <h3>{{ item.name }}, {{ item.user_id }}, {{ session.user_id }}, {{ item.category }}</h3>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
