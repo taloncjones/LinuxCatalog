@@ -273,7 +273,11 @@ def showItem(category_name, item_name):
 # New Item
 @app.route('/catalog/<int:category_id>/new', methods=['GET', 'POST'])
 def goToNewItem(category_id):
-    return
+    try:
+        category = session.query(Category).filter_by(id=category_id).one()
+    except:
+        abort(404)
+    return redirect(url_for('newItem', category_name=category.name))
 
 @app.route('/catalog/<string:category_name>/new', methods=['GET', 'POST'])
 def newItem(category_name):
