@@ -312,7 +312,7 @@ def goToEditItem(category_x, item_x):
     return redirect(url_for('editItem', category_name=category.name, item_name=item.name))
 
 @app.route('/catalog/<string:category_name>/<string:item_name>/edit', methods=['GET', 'POST'])
-def editItem(category_name):
+def editItem(category_name, item_name):
     return
 
 # Delete Item
@@ -348,7 +348,7 @@ def goToDeleteItem(category_x, item_x):
     return redirect(url_for('deleteItem', category_name=category.name, item_name=item.name))
 
 @app.route('/catalog/<string:category_name>/<string:item_name>/delete', methods=['GET', 'POST'])
-def deleteItem(category_name):
+def deleteItem(category_name, item_name):
     return
 
 
