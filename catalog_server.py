@@ -119,10 +119,6 @@ def showCatalog():
     categories = session.query(Category).all()
     items = session.query(Item).order_by(Item.id.desc()).limit(10)
     return render_template('catalog.html', categories=categories, items=items)
-#    if 'username' not in login_session:
-#        return render_template('publicCatalog.html', categories=categories, items=items)
-#    else:
-#        return render_template('catalog.html', categories=categories, items=items)
 
 # Read Category and Item tables for category page
 # If route contains category_id (from course script or manual input), look up category name and redirect
@@ -145,10 +141,6 @@ def showCategory(category_name):
         abort(404)
     items = session.query(Item).filter_by(category_id=category.id).all()
     return render_template('catalog.html', categories=categories, category=category, items=items)
-#    if 'username' not in login_session:
-#        return render_template('publicCatalog.html', categories=categories, category=category, items=items)
-#    else:
-#        return render_template('catalog.html', categories=categories, category=category, items=items)
 
 # New Category
 @app.route('/catalog/new', methods=['GET', 'POST'])
