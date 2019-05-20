@@ -10,23 +10,23 @@
     </div>
     <ul class="list-group">
         {% for item in items %}
-            <a href="{{ url_for('goToShowItem', category_x=item.category_id, item_x=item.name) }}">
+            <a href="{{ url_for('goToShowItem', category_x=item.category.name, item_x=item.name) }}">
                 <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-10 category-list">
-                        <h3>{{ item.name }}, {{ item.user_id }}, {{ session.user_id }}, {{ item.category }}</h3>
+                        <h3>{{ item.name }}, {{ item.user_id }}, {{ session.user_id }}, {{ item.category.name }}</h3>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
             </a>
             {% if session.user_id %}
                 <div class="text-right">
-                    <a href="{{ url_for('editItem', category_id=item.category_id, item_id=item.id) }}">
+                    <a href="{{ url_for('goToEditItem', category_x=item.category.name, item_x=item.id) }}">
                         <button class="btn btn-default edit">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </button>
                     </a>
-                    <a href="{{ url_for('deleteItem', category_id=item.category_id, item_id=item.id) }}">
+                    <a href="{{ url_for('goToDeleteItem', category_x=item.category.name, item_x=item.id) }}">
                         <button class="btn btn-danger delete">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         <button>
