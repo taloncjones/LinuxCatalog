@@ -280,8 +280,8 @@ def newItem(category_name):
     return
 
 # Edit Item
-@app.route('/catalog/<category_x>/<item_x>')
-def goToShowItem(category_x, item_x):
+@app.route('/catalog/<category_x>/<item_x>/edit')
+def goToEditItem(category_x, item_x):
     # Check if category is int or string
     if category_x.isdigit():
         # If int lookup based on category_id
@@ -309,9 +309,9 @@ def goToShowItem(category_x, item_x):
         except:
             abort(404)
     # Category and Item both contain objects at this point
-    return redirect(url_fot('showItem', category_name=category.name, item_name=item.name))
+    return redirect(url_fot('editItem', category_name=category.name, item_name=item.name))
 
-@app.route('/catalog/<string:category_name>/edit', methods=['GET', 'POST'])
+@app.route('/catalog/<string:category_name>/<string:item_name>/edit', methods=['GET', 'POST'])
 def editItem(category_name):
     return
 
