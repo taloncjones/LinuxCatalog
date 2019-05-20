@@ -1,0 +1,38 @@
+<div class="col-md-8" style="height: 100%">
+    <div class="row">
+        <div class="col-md-10">
+            {% if category %}
+                <h2>{{ category.name }}</h2>
+            {% else %}
+                <h2>Recently Added Items</h2>
+            {% endif %}
+        </div>
+    </div>
+    <ul class="list-group">
+        {% for item in items %}
+            <a href="{{ url_for('goToShowCategory', category_id=item.category_id) }}">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 category-list">
+                        <h3>{{ item.name }}, {{ item.user_id }}, {{ session.user_id }}</h3>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </a>
+            {% if session.user_id %}
+                <div class="text-right">
+                    <a href="{{ url_for('editCategory', category_name=test) }}">
+                        <button class="btn btn-default edit">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
+                    </a>
+                    <a href="{{ url_for('deleteCategory', category_name=test) }}">
+                        <button class="btn btn-danger delete">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        <button>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
