@@ -280,8 +280,76 @@ def newItem(category_name):
     return
 
 # Edit Item
+@app.route('/catalog/<category_x>/<item_x>')
+def goToShowItem(category_x, item_x):
+    # Check if category is int or string
+    if category_x.isdigit():
+        # If int lookup based on category_id
+        try:
+            category = session.query(Category).filter_by(id=category_x).one()
+        except:
+            abort(404)
+    else:
+        # Must be string, look up based on category_name
+        try:
+            category = session.query(Category).filter_by(name=category_x).one()
+        except:
+            abort(404)
+    # Check if item is int or string
+    if item_x.isdigit():
+        # If int lookup based on item_id
+        try:
+            item = session.query(Item).filter_by(id=item_x).one()
+        except:
+            abort(404)
+    else:
+        # Must be string, look up based on item_name
+        try:
+            item = session.query(Item).filter_by(name=item_x).one()
+        except:
+            abort(404)
+    # Category and Item both contain objects at this point
+    return redirect(url_fot('showItem', category_name=category.name, item_name=item.name))
+
+@app.route('/catalog/<string:category_name>/edit', methods=['GET', 'POST'])
+def editItem(category_name):
+    return
 
 # Delete Item
+@app.route('/catalog/<category_x>/<item_x>')
+def goToShowItem(category_x, item_x):
+    # Check if category is int or string
+    if category_x.isdigit():
+        # If int lookup based on category_id
+        try:
+            category = session.query(Category).filter_by(id=category_x).one()
+        except:
+            abort(404)
+    else:
+        # Must be string, look up based on category_name
+        try:
+            category = session.query(Category).filter_by(name=category_x).one()
+        except:
+            abort(404)
+    # Check if item is int or string
+    if item_x.isdigit():
+        # If int lookup based on item_id
+        try:
+            item = session.query(Item).filter_by(id=item_x).one()
+        except:
+            abort(404)
+    else:
+        # Must be string, look up based on item_name
+        try:
+            item = session.query(Item).filter_by(name=item_x).one()
+        except:
+            abort(404)
+    # Category and Item both contain objects at this point
+    return redirect(url_fot('showItem', category_name=category.name, item_name=item.name))
+
+@app.route('/catalog/<string:category_name>/delete', methods=['GET', 'POST'])
+def deleteItem(category_name):
+    return
 
 
 ###
