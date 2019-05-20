@@ -225,6 +225,23 @@ def deleteCategory(category_name):
 # Item functions
 ###
 
+# This function takes a table name and id_or_name variable (int or string) and looks up based on id or name
+# If any of the look ups fail, 404 is returned
+def getTableObject(table, id_or_name):
+    if id_or_name.isdigit():
+        #If int, look up based on id
+        try:
+            object = session.query(table).filter_by(id=id_or_name).one()
+        except:
+            abort(404)
+    else:
+        # Must be string, look up based on name
+        try:
+            object = session.query(table).filter_by(name=id_or_name).one()
+        except:
+            abort(404)
+    return object
+
 # Read Item table for item page
 ## Show 'Edit' and 'Delete' buttons
 @app.route('/catalog/<category_x>/<item_x>')
