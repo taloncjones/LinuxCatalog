@@ -243,23 +243,21 @@ def getTableObject(table, id_or_name):
     return object
 
 # Read Item table for item page
-## Show 'Edit' and 'Delete' buttons
 @app.route('/catalog/<category_x>/<item_x>')
-def goToShowItem(category_x, item_x):
-    return "Test"
-#    return redirect(url_for('showItem', category_name=category.name, item_name=item.name))
-
-@app.route('/catalog/<string:category_x>/<string:item_x>')
 def showItem(category_x, item_x):
-    try:
-        item = session.query(Item).filter_by(name=item_x).one()
-    except:
-        abort(404)
-    creator = getUserInfo(item.user_id)
-    if 'username' not in login_session or creator.id != login_session['user_id']:
-        return render_template('publicitem.html', item=item)
+    category = getTableObject(Category, category_x)
+    item = getTableObject(Item, item_x)
+#    creator = getUserInfo(item.user_id)
+#    if 'username' not in login_session or creator.id != login_session['user_id']:
+#        return render_template('publicitem.html', item=item)
+#    else:
+    if 'username' not in login_session:
+        return "Not in login"
+    elif item.user_id != login_session['user_id']:
+        return "Not a match"
     else:
-        return render_template('item.html', item=item, creator=creator)
+        return "Logged in and match"
+#    return render_template('item.html', item=item, creator=creator)
 
 # New Item
 @app.route('/catalog/<int:category_id>/new', methods=['GET', 'POST'])
