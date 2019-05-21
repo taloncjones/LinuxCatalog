@@ -121,24 +121,11 @@ def showCatalog():
     return render_template('catalog.html', categories=categories, items=items)
 
 # Read Category and Item tables for category page
-# If route contains category_id (from course script or manual input), look up category name and redirect
-@app.route('/catalog/<int:category_id>')
-@app.route('/catalog/<int:category_id>/items')
-def goToShowCategory(category_id):
-    try:
-        category = session.query(Category).filter_by(id=category_id).one()
-    except:
-        abort(404)
-    return redirect(url_for('showCategory', category_name=category.name))
-
-@app.route('/catalog/<string:category_name>')
-@app.route('/catalog/<string:category_name>/items')
-def showCategory(category_name):
+@app.route('/catalog/<category_x>')
+@app.route('/catalog/<category_x>/items')
+def showCategory(category_x):
     categories = session.query(Category).all()
-    try:
-        category = session.query(Category).filter_by(name=category_name).one()
-    except:
-        abort(404)
+    category = getTableObject(Category, category_x)
     items = session.query(Item).filter_by(category_id=category.id).all()
     return render_template('catalog.html', categories=categories, category=category, items=items)
 
