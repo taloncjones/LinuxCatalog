@@ -247,10 +247,6 @@ def getTableObject(table, id_or_name):
 def showItem(category_x, item_x):
     category = getTableObject(Category, category_x)
     item = getTableObject(Item, item_x)
-#    creator = getUserInfo(item.user_id)
-#    if 'username' not in login_session or creator.id != login_session['user_id']:
-#        return render_template('publicitem.html', item=item)
-#    else:
     if 'username' not in login_session:
         return "Not in login"
     elif item.user_id != login_session['user_id']:
