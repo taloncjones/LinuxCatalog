@@ -228,7 +228,7 @@ def deleteCategory(category_name):
 # This function takes a table name and id_or_name variable (int or string) and looks up based on id or name
 # If any of the look ups fail, 404 is returned
 def getTableObject(table, id_or_name):
-    if id_or_name.isdigit():
+    if str(id_or_name).isdigit():
         #If int, look up based on id
         try:
             object = session.query(table).filter_by(id=id_or_name).one()
