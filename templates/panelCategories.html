@@ -22,7 +22,7 @@
             </a>
             {% if category.user_id == session.user_id %}
                 <div class="text-right">
-                    <a href="{{ url_for('editCategory', category_name=category.name) }}">
+                    <a href="{{ url_for('editCategory', category_x=category.name) }}">
                         <button class="btn btn-default edit">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </button>
