@@ -38,9 +38,10 @@ session = DBSession()
 # Checks if user is logged in. If not, redirect to showLogin page.
 def login_required(object):
     @wraps(object)
-    def is_logged_in():
-        if 'user_id' not in login_session:
-            return redirect(url_for('showLogin'))
+    def is_logged_in(*args, **kwargs):
+        if 'user_id' is None:
+            return redirect(url_for('showLogin', next=request.url))
+        return object(*args, **kwargs)
     return is_logged_in
 
 # Login page
