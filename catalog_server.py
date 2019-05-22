@@ -183,7 +183,7 @@ def editCategory(category_x):
             flash('Category Successfully Renamed: %s' % editCategory.name, 'success')
             return redirect(url_for('showCatalog'))
     else:
-        return render_template('editCategory.hmtl', category=editCategory)
+        return render_template('editCategory.html', category=editCategory)
 
 # Delete Category
 # If route contains category_id (from course script or manual input), look up category name and redirect
@@ -216,7 +216,7 @@ def deleteCategory(category_name):
         session.commit()
         return redirect(url_for('showCatalog'))
     else:
-        return render_template('deleteCategory.hmtl', category=deleteCategory, isEmpty=isEmpty)
+        return render_template('deleteCategory.html', category=deleteCategory, isEmpty=isEmpty)
 
 
 ###
