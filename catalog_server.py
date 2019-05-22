@@ -170,22 +170,10 @@ def newCategory():
         return render_template('newCategory.html')
 
 # Edit Category
-# If route contains category_id (from course script or manual input), look up category name and redirect
-@app.route('/catalog/<int:category_id>/edit')
-def goToEditCategory(category_id):
-    try:
-        category = session.query(Category).filter_by(id=category_id).one()
-    except:
-        abort(404)
-    return redirect(url_for('editCategory', category_name=category.name))
-
-@app.route('/catalog/<string:category_name>/edit', methods=['GET', 'POST'])
+@app.route('/catalog/<category_x>/edit', methods=['GET', 'POST'])
 @login_required
-def editCategory(category_name):
-    try:
-        editCategory = session.query(Category).filter_by(name=category_name).one()
-    except:
-        abort(404)
+def editCategory(category_x):
+    editCategory = getTableObject(Category, category_x)
     if editCategory.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
     if request.method == 'POST':
