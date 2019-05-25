@@ -31,7 +31,7 @@
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </button>
                             </a>
-                            <a href="{{ url_for('goToDeleteItem', category_x=item.category.name, item_x=item.name) }}">
+                            <a href="{{ url_for('deleteItem', category_x=item.category.name, item_x=item.name) }}">
                                 <button class="btn btn-default delete">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 </button>
