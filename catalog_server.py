@@ -182,10 +182,13 @@ def editCategory(category_x):
     if request.method == 'POST':
         if request.form['name']:
             editCategory.name = request.form['name']
+            session.add(editCategory)
+            session.commit()
             flash('Category Successfully Renamed: %s' % editCategory.name, 'success')
             return redirect(url_for('showCatalog'))
     else:
-        return render_template('editCategory.html', category=editCategory)
+        categories = session.query(Category).all()
+        return render_template('editCategory.html', categories=categories, category=editCategory)
 
 # Delete Category
 @app.route('/catalog/<category_x>/delete', methods=['GET', 'POST'])
