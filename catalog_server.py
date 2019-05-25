@@ -199,17 +199,13 @@ def deleteCategory(category_x):
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
     # Check if category is empty
     deleteCategoryItems = session.query(Item).filter_by(category_id=deleteCategory.id).all()
-    if deleteCategoryItems:
-        isEmpty = False
-    else:
-        isEmpty = True
     if request.method == 'POST':
         session.delete(deleteCategory)
-        flash('Category %s Deleted!' % deleteCategory.name, 'success')
         session.commit()
+        flash('Category %s Deleted!' % deleteCategory.name, 'success')
         return redirect(url_for('showCatalog'))
     else:
-        return render_template('deleteCategory.html', category=deleteCategory, isEmpty=isEmpty)
+        return render_template('deleteCategory.html', category=deleteCategory, items=deleteCategoryItems)
 
 
 ###
