@@ -3,7 +3,7 @@
         <div class="col-xs-10" style="padding: 5px;">
             <a href="{{ url_for('showCatalog') }}"><h2>Categories</h2></a>
         </div>
-        <div class="col-xs-2 btn-group" style="padding: 5px 0px; display: flex">
+        <div class="col-xs-2 btn-group add-btn">
             {% if session.user_id %}
                 <a href="{{ url_for('newCategory') }}">
                     <button class="btn btn-default" id="new-category">
