@@ -11,8 +11,8 @@
         {% for item in items %}
             <a href="{{ url_for('showItem', category_x=item.category.name, item_x=item.name) }}">
                 <div class="row category-list">
-                    <div class="col-xs-8">
-                        <h3>{{ item.name }}, {{ item.user_id }}, {{ session.user_id }}, {{ item.category.name }}</h3>
+                    <div class="col-xs-8 text-nowrap">
+                        <h3>{{ item.name }}</h3><h3 class="cat-right">({{ item.category.name }})</h3>
                     </div>
                     {% if item.user_id == session.user_id %}
                     <div class="col-xs-4">
