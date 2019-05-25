@@ -240,40 +240,27 @@ def newItem(category_name):
     return
 
 # Edit Item
-@app.route('/catalog/<category_x>/<item_x>/edit')
-def goToEditItem(category_x, item_x):
-    # Check if category is int or string
-    if category_x.isdigit():
-        # If int lookup based on category_id
-        try:
-            category = session.query(Category).filter_by(id=category_x).one()
-        except:
-            abort(404)
+@app.route('/catalog/<category_x>/<item_x>/edit', methods=['GET', 'POST'])
+@login_required
+def editItem(category_x, item_x):
+    editCategory = getTableObject(Category, category_x)
+    editItem = getTableObject(Item, item_x)
+    if editItem.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
+    if request.method == 'POST':
+        if request.form['name']:
+            editItem.name = request.form['name']
+        if request.form['description']:
+            editItem.description = request.form['description']
+        if request.form['category']
+            editItem.category = request.form['category']
+        session.add(editItem)
+        session.commit()
+        flash('Item Successfully Updated!', 'success')
+        return redirect(url_for('showItem', category_x=editItem.category.name, item_x=editItem.name))
     else:
-        # Must be string, look up based on category_name
-        try:
-            category = session.query(Category).filter_by(name=category_x).one()
-        except:
-            abort(404)
-    # Check if item is int or string
-    if item_x.isdigit():
-        # If int lookup based on item_id
-        try:
-            item = session.query(Item).filter_by(id=item_x).one()
-        except:
-            abort(404)
-    else:
-        # Must be string, look up based on item_name
-        try:
-            item = session.query(Item).filter_by(name=item_x).one()
-        except:
-            abort(404)
-    # Category and Item both contain objects at this point
-    return redirect(url_for('editItem', category_name=category.name, item_name=item.name))
-
-@app.route('/catalog/<string:category_name>/<string:item_name>/edit', methods=['GET', 'POST'])
-def editItem(category_name, item_name):
-    return
+        categories = session.query(Category).all()
+        return render_template('editItem.html', categories=categories, item=editItem)
 
 # Delete Item
 @app.route('/catalog/<category_x>/<item_x>/delete')
