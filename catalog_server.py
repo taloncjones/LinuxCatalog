@@ -168,7 +168,7 @@ def newCategory():
             session.add(newCategory)
             session.commit()
             flash('New Category %s Successfully Created!' % newCategory.name)
-        return redirect(url_for('showCategory'), category_name=name)
+        return redirect(url_for('showCategory', category_x=name))
     else:
         categories = session.query(Category).all()
         return render_template('newCategory.html', categories=categories)
@@ -186,7 +186,7 @@ def editCategory(category_x):
             session.add(editCategory)
             session.commit()
             flash('Category Successfully Renamed: %s' % editCategory.name, 'success')
-            return redirect(url_for('showCatalog'))
+            return redirect(url_for('showCategory', category_x=editCategory.name))
     else:
         categories = session.query(Category).all()
         return render_template('editCategory.html', categories=categories, category=editCategory)
