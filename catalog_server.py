@@ -227,7 +227,7 @@ def showItem(category_x, item_x):
 #    return render_template('item.html', item=item, creator=creator)
 
 # New Item
-@app.route('/catalog/<int:category_x>/new', methods=['GET', 'POST'])
+@app.route('/catalog/<category_x>/new', methods=['GET', 'POST'])
 @login_required
 def newItem(category_x):
     category = getTableObject(Category, category_x)
