@@ -7,6 +7,15 @@
                 <h2>Recently Added Items</h2>
             {% endif %}
         </div>
+        <div class="col-xs-2 btn-group add-btn">
+            {% if session.user_id and category %}
+                <a href="{{ url_for('newItem', category_x=category.name) }}">
+                    <button class="btn btn-default" id="new-item">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </a>
+            {% endif %}
+        </div>
     </div>
         {% for item in items %}
             <a href="{{ url_for('showItem', category_x=item.category.name, item_x=item.name) }}">
