@@ -166,8 +166,8 @@ def newCategory():
         except:
             newCategory = Category(name=name, user_id=login_session['user_id'])
             session.add(newCategory)
-            flash('New Category %s Successfully Created!' % newCategory.name)
             session.commit()
+            flash('New Category %s Successfully Created!' % newCategory.name)
         return redirect(url_for('showCategory'), category_name=name)
     else:
         return render_template('newCategory.html')
