@@ -14,7 +14,7 @@
                     <div class="col-xs-8">
                         <h3>{{ item.name }}, {{ item.user_id }}, {{ session.user_id }}, {{ item.category.name }}</h3>
                     </div>
-                    {% if session.user_id %}
+                    {% if item.user_id == session.user_id %}
                     <div class="col-xs-4">
                         <div class="btn-group" role="group" aria-label="Edit and Delete Buttons">
                             <a href="{{ url_for('goToEditItem', category_x=item.category.name, item_x=item.name) }}">
