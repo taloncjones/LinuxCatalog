@@ -270,39 +270,19 @@ def editItem(category_x, item_x):
 
 # Delete Item
 @app.route('/catalog/<category_x>/<item_x>/delete')
-def goToDeleteItem(category_x, item_x):
-    # Check if category is int or string
-    if category_x.isdigit():
-        # If int lookup based on category_id
-        try:
-            category = session.query(Category).filter_by(id=category_x).one()
-        except:
-            abort(404)
+@login_required
+def deleteItem(category_x, item_x):
+    deleteItem = getTableObject(Item, item_x)
+    if deleteItem.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
+    if request.method == 'POST':
+        session.delete(deleteItem)
+        session.commit()
+        flash('Item %s Deleted!' % deleteItem.name, 'success')
+        return redirect(url_for('showCategory', category_x=category_x))
     else:
-        # Must be string, look up based on category_name
-        try:
-            category = session.query(Category).filter_by(name=category_x).one()
-        except:
-            abort(404)
-    # Check if item is int or string
-    if item_x.isdigit():
-        # If int lookup based on item_id
-        try:
-            item = session.query(Item).filter_by(id=item_x).one()
-        except:
-            abort(404)
-    else:
-        # Must be string, look up based on item_name
-        try:
-            item = session.query(Item).filter_by(name=item_x).one()
-        except:
-            abort(404)
-    # Category and Item both contain objects at this point
-    return redirect(url_for('deleteItem', category_name=category.name, item_name=item.name))
-
-@app.route('/catalog/<string:category_name>/<string:item_name>/delete', methods=['GET', 'POST'])
-def deleteItem(category_name, item_name):
-    return
+        categories = session.query(Category).all()
+        return render_template('deleteItem.html', categories=categories, item=deleteItem)
 
 
 ###
