@@ -227,16 +227,22 @@ def showItem(category_x, item_x):
 #    return render_template('item.html', item=item, creator=creator)
 
 # New Item
-@app.route('/catalog/<int:category_id>/new', methods=['GET', 'POST'])
-def goToNewItem(category_id):
-    try:
-        category = session.query(Category).filter_by(id=category_id).one()
-    except:
-        abort(404)
-    return redirect(url_for('newItem', category_name=category.name))
-
-@app.route('/catalog/<string:category_name>/new', methods=['GET', 'POST'])
-def newItem(category_name):
+@app.route('/catalog/<int:category_x>/new', methods=['GET', 'POST'])
+@login_required
+def newItem(category_x):
+    category = getTableObject(Category, category_x)
+    if request.method == 'POST':
+        newItem = Item(
+            name = request.form['name'],
+            description = request.form['description'],
+            category_id = request.form['category'],
+            user_id = login_session['user_id'])
+        session.add(newItem)
+        session.commit()
+        flash('New Item %s  Successfully Created' % (newItem.name))
+        return redirect(url_for('showItem', category_x=category.name, item_x=newItem.name))
+    else:
+        return render_template('newItem.html', category=category)
     return
 
 # Edit Item
