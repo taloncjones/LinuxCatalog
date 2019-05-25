@@ -170,7 +170,8 @@ def newCategory():
             flash('New Category %s Successfully Created!' % newCategory.name)
         return redirect(url_for('showCategory'), category_name=name)
     else:
-        return render_template('newCategory.html')
+        categories = session.query(Category).all()
+        return render_template('newCategory.html', categories=categories)
 
 # Edit Category
 @app.route('/catalog/<category_x>/edit', methods=['GET', 'POST'])
