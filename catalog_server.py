@@ -252,7 +252,7 @@ def editItem(category_x, item_x):
             editItem.name = request.form['name']
         if request.form['description']:
             editItem.description = request.form['description']
-        if request.form['category']
+        if request.form['category']:
             editItem.category = request.form['category']
         session.add(editItem)
         session.commit()
