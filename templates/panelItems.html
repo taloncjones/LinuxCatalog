@@ -17,7 +17,7 @@
                     {% if item.user_id == session.user_id %}
                     <div class="col-xs-4">
                         <div class="btn-group" role="group" aria-label="Edit and Delete Buttons">
-                            <a href="{{ url_for('goToEditItem', category_x=item.category.name, item_x=item.name) }}">
+                            <a href="{{ url_for('editItem', category_x=item.category.name, item_x=item.name) }}">
                                 <button class="btn btn-default">
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </button>
