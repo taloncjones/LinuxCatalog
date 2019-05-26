@@ -1,6 +1,15 @@
     <div class="row">
         <div class="col-xs-10" style="padding: 5px;">
-            <a href="{{ url_for('showCatalog') }}"><h2>Categories</h2></a>
+            {% if category %}
+                <a href="{{ url_for('showCatalog') }}">
+                    <h2>
+                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                        Back to Catalog
+                    </h2>
+                </a>
+            {% else %}
+                <h2>Catalog</h2>
+            {% endif %}
         </div>
         <div class="col-xs-2 btn-group add-btn">
             {% if session.user_id %}
