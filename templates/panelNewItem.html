@@ -1,7 +1,7 @@
 <div class="col-xs-6" style="height: 100%">
     <div class="row">
         <div class="col-xs-10" style="padding: 5px;">
-            <h2>Add New Category:</h2>
+            <h2>Add New Item to {{ category.name }}:</h2>
         </div>
     </div>
     <div class="row">
@@ -10,10 +10,12 @@
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" class="form-control" maxlength="100" name="name" required>
+                    <label for="description">Description:</label>
+                    <input type="text" class="form-control" maxlength="250" name="description" required>
                     <div class="padding-bottom"></div>
                     <button class="btn btn-default" id="submit">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        Add Category
+                        Add Item
                     </button>
 
                 </div>
