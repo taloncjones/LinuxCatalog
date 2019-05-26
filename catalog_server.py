@@ -251,7 +251,7 @@ def newItem(category_x):
 @app.route('/catalog/<category_x>/<item_x>/edit', methods=['GET', 'POST'])
 @login_required
 def editItem(category_x, item_x):
-    editCategory = getTableObject(Category, category_x)
+    category = getTableObject(Category, category_x)
     editItem = getTableObject(Item, item_x)
     if editItem.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
@@ -268,7 +268,8 @@ def editItem(category_x, item_x):
         return redirect(url_for('showItem', category_x=editItem.category.name, item_x=editItem.name))
     else:
         categories = session.query(Category).all()
-        return render_template('editItem.html', categories=categories, item=editItem)
+        items = session.query(Item).filter_by(category_id=category.id).all()
+        return render_template('editItem.html', categories=categories, items=items, item=editItem)
 
 # Delete Item
 @app.route('/catalog/<category_x>/<item_x>/delete')
