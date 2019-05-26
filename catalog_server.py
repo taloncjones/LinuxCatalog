@@ -181,12 +181,16 @@ def editCategory(category_x):
     if editCategory.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
     if request.method == 'POST':
-        if request.form['name']:
-            editCategory.name = request.form['name']
-            session.add(editCategory)
-            session.commit()
-            flash('Category Successfully Renamed: %s' % editCategory.name, 'success')
-            return redirect(url_for('showCategory', category_x=editCategory.name))
+        try:
+            category = getTableObject(Category, request.form['name'])
+            flash('Category Already Exists!', 'error')
+        except:
+            if request.form['name']:
+                editCategory.name = request.form['name']
+                session.add(editCategory)
+                session.commit()
+                flash('Category Successfully Renamed: %s' % editCategory.name, 'success')
+        return redirect(url_for('showCategory', category_x=editCategory.name))
     else:
         categories = session.query(Category).all()
         return render_template('editCategory.html', categories=categories, category=editCategory)
