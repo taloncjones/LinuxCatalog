@@ -1,21 +1,23 @@
     <div class="row">
         <div class="col-xs-10" style="padding: 5px;">
-            <h2>Add New Category:</h2>
+            <a href="{{ url_for('showCategory', category_x=category.name) }}">
+                <h2>
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                    Back to {{ category.name }}
+                </h2>
+            </a>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-8 padding-top">
-            <form action="#" method="post">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" maxlength="100" name="name" required>
-                    <div class="padding-bottom"></div>
-                    <button class="btn btn-default" id="submit">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        Add Category
-                    </button>
-
-                </div>
-            </form>
+        <div class="col-xs-8 padding-top item-header">
+            <h2>{{ item.name }}</h2>
+        </div>
+        <div class="col-xs-4 padding-top creator">
+            <img src="{{ creator.picture }}">
+            <h3>{{ creator.name }}</h3>
+        </div>
+        <div class="col-xs-12">
+            <h4>Description:</h4>
+            <p>{{ item.description }}</p>
         </div>
     </div>
