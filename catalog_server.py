@@ -223,14 +223,10 @@ def deleteCategory(category_x):
 @app.route('/catalog/<category_x>/<item_x>')
 def showItem(category_x, item_x):
     category = getTableObject(Category, category_x)
+    items = session.query(Item).filter_by(category_id=category.id).all()
     item = getTableObject(Item, item_x)
-    if 'username' not in login_session:
-        return "Not in login"
-    elif item.user_id != login_session['user_id']:
-        return "Not a match"
-    else:
-        return "Logged in and match"
-#    return render_template('item.html', item=item, creator=creator)
+    creator = getTableObject(User, item.user_id)
+    return render_template('item.html', category=category, items=items, item=item, creator=creator)
 
 # New Item
 @app.route('/catalog/<category_x>/new', methods=['GET', 'POST'])
