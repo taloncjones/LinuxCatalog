@@ -244,8 +244,8 @@ def newItem(category_x):
         flash('New Item %s  Successfully Created' % (newItem.name))
         return redirect(url_for('showItem', category_x=category.name, item_x=newItem.name))
     else:
-        categories = session.query(Category).all()
-        return render_template('newItem.html', categories=categories, category=category)
+        items = session.query(Item).filter_by(category_id=category.id).all()
+        return render_template('newItem.html', category=category, items=items)
 
 # Edit Item
 @app.route('/catalog/<category_x>/<item_x>/edit', methods=['GET', 'POST'])
