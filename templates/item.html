@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "banner.html" %}
+{% include "flashMessage.html" %}
+
+<div class="row">
+    {% include "panelCategories.html" %}
+    <div class="col-xs-1"></div>
+    {% include "panelItems.html" %}
+</div>
+
+{% endblock %}
