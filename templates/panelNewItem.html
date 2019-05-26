@@ -16,7 +16,12 @@
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         Add Item
                     </button>
-
+                    <a href="{{ url_for('showCategory', category_x=category.name) }}">
+                        <button type="button" class="btn btn-default delete">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            Cancel
+                        </button>
+                    </a>
                 </div>
             </form>
         </div>
