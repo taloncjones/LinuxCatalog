@@ -206,6 +206,8 @@ def deleteCategory(category_x):
     deleteCategoryItems = session.query(Item).filter_by(category_id=deleteCategory.id).all()
     if request.method == 'POST':
         session.delete(deleteCategory)
+        for item in deleteCategoryItems:
+            session.delete(item)
         session.commit()
         flash('Category %s Deleted!' % deleteCategory.name, 'success')
         return redirect(url_for('showCatalog'))
