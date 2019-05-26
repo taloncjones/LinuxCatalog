@@ -269,7 +269,7 @@ def editItem(category_x, item_x):
     else:
         categories = session.query(Category).all()
         items = session.query(Item).filter_by(category_id=category.id).all()
-        return render_template('editItem.html', categories=categories, items=items, item=editItem)
+        return render_template('editItem.html', categories=categories, category=category, items=items, item=editItem)
 
 # Delete Item
 @app.route('/catalog/<category_x>/<item_x>/delete')
