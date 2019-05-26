@@ -4,9 +4,13 @@
 {% include "flashMessage.html" %}
 
 <div class="row">
-    {% include "panelCategories.html" %}
+    <div class="col-xs-5">
+        {% include "panelItems.html" %}
+    </div>
     <div class="col-xs-1"></div>
-    {% include "panelItem.html" %}
+    <div class="col-xs-6">
+        {% include "panelItem.html" %}
+    </div
 </div>
 
 {% endblock %}
