@@ -272,9 +272,10 @@ def editItem(category_x, item_x):
         return render_template('editItem.html', categories=categories, category=category, items=items, item=editItem)
 
 # Delete Item
-@app.route('/catalog/<category_x>/<item_x>/delete')
+@app.route('/catalog/<category_x>/<item_x>/delete', methods=['GET', 'POST'])
 @login_required
 def deleteItem(category_x, item_x):
+    category = getTableObject(Category, category_x)
     deleteItem = getTableObject(Item, item_x)
     if deleteItem.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
@@ -284,8 +285,8 @@ def deleteItem(category_x, item_x):
         flash('Item %s Deleted!' % deleteItem.name, 'success')
         return redirect(url_for('showCategory', category_x=category_x))
     else:
-        categories = session.query(Category).all()
-        return render_template('deleteItem.html', categories=categories, item=deleteItem)
+        items = session.query(Item).filter_by(category_id=category.id).all()
+        return render_template('deleteItem.html', category=category, items=items, item=deleteItem)
 
 
 ###
