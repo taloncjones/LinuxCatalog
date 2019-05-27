@@ -12,7 +12,11 @@
                     <label for="description">Description:</label>
                     <textarea class="form-control" maxlength="250" rows="10" name="description">{{item.description }}</textarea>
                     <label for="category">Category:</label>
-                    <div></div>
+                    <select name="category">
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
                     <div class="padding-bottom"></div>
                     <button class="btn btn-default" id="submit">
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>

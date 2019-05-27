@@ -261,7 +261,7 @@ def editItem(category_x, item_x):
         if request.form['description']:
             editItem.description = request.form['description']
         if request.form['category']:
-            editItem.category = request.form['category']
+            editItem.category_id = request.form['category']
         session.add(editItem)
         session.commit()
         flash('Item Successfully Updated!', 'success')
