@@ -230,7 +230,7 @@ def deleteCategory(category_x):
 def showItem(category_x, item_x):
     category = getTableObject(Category, category_x)
     items = session.query(Item).filter_by(category_id=category.id).all()
-    item = getTableObject(Item, item_x)
+    item = getTableObject(Item, item_x, category.id)
     creator = getTableObject(User, item.user_id)
     return render_template('item.html', category=category, items=items, item=item, creator=creator)
 
@@ -258,7 +258,7 @@ def newItem(category_x):
 @login_required
 def editItem(category_x, item_x):
     category = getTableObject(Category, category_x)
-    editItem = getTableObject(Item, item_x)
+    editItem = getTableObject(Item, item_x, category.id)
     if editItem.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
     if request.method == 'POST':
@@ -282,7 +282,7 @@ def editItem(category_x, item_x):
 @login_required
 def deleteItem(category_x, item_x):
     category = getTableObject(Category, category_x)
-    deleteItem = getTableObject(Item, item_x)
+    deleteItem = getTableObject(Item, item_x, category.id)
     if deleteItem.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
     if request.method == 'POST':
