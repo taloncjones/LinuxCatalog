@@ -87,17 +87,23 @@ def disconnect():
 
 # This function takes a table name and id_or_name variable (int or string) and looks up based on id or name
 # If any of the look ups fail, 404 is returned
-def getTableObject(table, id_or_name):
+def getTableObject(table, id_or_name, cat_id=''):
     if str(id_or_name).isdigit():
         #If int, look up based on id
         try:
-            object = session.query(table).filter_by(id=id_or_name).one()
+            if cat_id:
+                object = session.query(table).filter_by(id=id_or_name).filter_by(category_id=cat_id).one()
+            else:
+                object = session.query(table).filter_by(id=id_or_name).one()
         except:
             abort(404)
     else:
         # Must be string, look up based on name
         try:
-            object = session.query(table).filter_by(name=id_or_name).one()
+            if cat_id:
+                object = session.query(table).filter_by(name=id_or_name).filter_by(category_id=cat_id).one()
+            else:
+                object = session.query(table).filter_by(name=id_or_name).one()
         except:
             abort(404)
     return object
