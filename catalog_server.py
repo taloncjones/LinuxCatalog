@@ -95,7 +95,9 @@ def showCatalogJSON():
 @app.route('/catalog/<category_x>/JSON')
 @app.route('/catalog/<category_x>/items/JSON')
 def showCategoryJSON(category_x):
-    return
+    category = getTableObject(Category, category_x)
+    items = session.query(Item).filter_by(category_id=category.id).all()
+    return jsonify(items=[i.serialize for i in items])
 
 @app.route('/catalog/<category_x>/<item_x>/JSON')
 def showItemJSON(category_x, item_x):
