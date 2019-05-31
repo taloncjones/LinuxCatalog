@@ -3,23 +3,19 @@
 # catalog_server.py for Udacity Course 4 Item Catalog project
 # Created by Talon Jones
 
+import httplib2
+import json
+import random
+import requests
+import string
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response, abort
 from flask import session as login_session
-
+from functools import wraps
+from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
-
 from catalog_db import Base, User, Category, Item
-
-from functools import wraps
-
-import json
-import random
-import string
-import requests
-import httplib2
 
 app = Flask(__name__)
 
@@ -33,6 +29,7 @@ engine = create_engine('sqlite:///itemcatalog.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
 
 ###
 # Log in handlers
@@ -48,7 +45,9 @@ def login_required(object):
         except:
             return redirect(url_for('showLogin'))
         return object(*args, **kwargs)
+
     return is_logged_in
+
 
 # Login page
 @app.route('/login')
@@ -57,6 +56,7 @@ def showLogin():
                     for x in xrange(32))
     login_session['state'] = state
     return render_template('login.html', STATE=state)
+
 
 # Disconnect 'page'.
 # When user clicks 'Log Out', clears login_session info and redirects to catalog page.
@@ -92,12 +92,14 @@ def showCatalogJSON():
     categories = session.query(Category).all()
     return jsonify(categories=[c.serialize for c in categories])
 
+
 @app.route('/catalog/<category_x>/JSON')
 @app.route('/catalog/<category_x>/items/JSON')
 def showCategoryJSON(category_x):
     category = getTableObject(Category, category_x)
     items = session.query(Item).filter_by(category_id=category.id).all()
     return jsonify(items=[i.serialize for i in items])
+
 
 @app.route('/catalog/<category_x>/<item_x>/JSON')
 def showItemJSON(category_x, item_x):
@@ -150,10 +152,12 @@ def createUser(login_session):
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
+
 # Get user info for supplied user_id
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user.id).one()
     return user
+
 
 # Get user id for supplied email
 def getUserID(email):
@@ -181,6 +185,7 @@ def showCatalog():
     items = session.query(Item).order_by(Item.id.desc()).limit(10)
     return render_template('catalog.html', categories=categories, items=items)
 
+
 # Read Category and Item tables for category page
 @app.route('/catalog/<category_x>')
 @app.route('/catalog/<category_x>/items')
@@ -189,6 +194,7 @@ def showCategory(category_x):
     category = getTableObject(Category, category_x)
     items = session.query(Item).filter_by(category_id=category.id).all()
     return render_template('catalog.html', categories=categories, category=category, items=items)
+
 
 # New Category
 @app.route('/catalog/new', methods=['GET', 'POST'])
@@ -209,6 +215,7 @@ def newCategory():
     else:
         categories = session.query(Category).all()
         return render_template('newCategory.html', categories=categories)
+
 
 # Edit Category
 @app.route('/catalog/<category_x>/edit', methods=['GET', 'POST'])
@@ -233,6 +240,7 @@ def editCategory(category_x):
     else:
         categories = session.query(Category).all()
         return render_template('editCategory.html', categories=categories, category=editCategory)
+
 
 # Delete Category
 @app.route('/catalog/<category_x>/delete', methods=['GET', 'POST'])
@@ -268,6 +276,7 @@ def showItem(category_x, item_x):
     creator = getTableObject(User, item.user_id)
     return render_template('item.html', category=category, items=items, item=item, creator=creator)
 
+
 # New Item
 @app.route('/catalog/<category_x>/new', methods=['GET', 'POST'])
 @login_required
@@ -286,11 +295,12 @@ def newItem(category_x):
                 user_id=login_session['user_id'])
             session.add(newItem)
             session.commit()
-            flash('New Item %s  Successfully Created' % (newItem.name), 'alert alert-success')
+            flash('New Item %s  Successfully Created' % newItem.name, 'alert alert-success')
         return redirect(url_for('showItem', category_x=category.name, item_x=request.form['name']))
     else:
         items = session.query(Item).filter_by(category_id=category.id).all()
         return render_template('newItem.html', category=category, items=items)
+
 
 # Edit Item
 @app.route('/catalog/<category_x>/<item_x>/edit', methods=['GET', 'POST'])
@@ -320,6 +330,7 @@ def editItem(category_x, item_x):
         categories = session.query(Category).all()
         items = session.query(Item).filter_by(category_id=category.id).all()
         return render_template('editItem.html', categories=categories, category=category, items=items, item=editItem)
+
 
 # Delete Item
 @app.route('/catalog/<category_x>/<item_x>/delete', methods=['GET', 'POST'])
