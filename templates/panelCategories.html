@@ -1,49 +1,49 @@
-    <div class="row">
-        <div class="col-xs-10" style="padding: 5px;">
-            {% if category %}
-                <a href="{{ url_for('showCatalog') }}">
-                    <h2>
-                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                        Back to Home
-                    </h2>
-                </a>
-            {% else %}
-                <h2>Catalog</h2>
-            {% endif %}
+<div class="row">
+    <div class="col-xs-10" style="padding: 5px;">
+        {% if category %}
+        <a href="{{ url_for('showCatalog') }}">
+            <h2>
+                <span aria-hidden="true" class="glyphicon glyphicon-arrow-left"></span>
+                Back to Home
+            </h2>
+        </a>
+        {% else %}
+        <h2>Catalog</h2>
+        {% endif %}
+    </div>
+    <div class="col-xs-2 btn-group add-btn">
+        {% if session.user_id %}
+        <a href="{{ url_for('newCategory') }}">
+            <button class="btn btn-default" id="new-category">
+                <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
+                New Category
+            </button>
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% for category in categories %}
+<a href="{{ url_for('showCategory', category_x=category.name) }}">
+    <div class="row category-list">
+        <div class="col-xs-8">
+            <h3>{{ category.name }}</h3>
         </div>
-        <div class="col-xs-2 btn-group add-btn">
-            {% if session.user_id %}
-                <a href="{{ url_for('newCategory') }}">
-                    <button class="btn btn-default" id="new-category">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        New Category
+        {% if category.user_id == session.user_id %}
+        <div class="col-xs-4">
+            <div aria-label="Edit and Delete Buttons" class="btn-group" role="group">
+                <a href="{{ url_for('editCategory', category_x=category.name) }}">
+                    <button class="btn btn-default">
+                        <span aria-hidden="true" class="glyphicon glyphicon-edit"></span>
                     </button>
                 </a>
-            {% endif %}
+                <a href="{{ url_for('deleteCategory', category_x=category.name) }}">
+                    <button class="btn btn-default delete">
+                        <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </a>
+            </div>
         </div>
+        {% endif %}
     </div>
-        {% for category in categories %}
-            <a href="{{ url_for('showCategory', category_x=category.name) }}">
-                <div class="row category-list">
-                    <div class="col-xs-8">
-                        <h3>{{ category.name }}</h3>
-                    </div>
-                    {% if category.user_id == session.user_id %}
-                    <div class="col-xs-4">
-                        <div class="btn-group" role="group" aria-label="Edit and Delete Buttons">
-                            <a href="{{ url_for('editCategory', category_x=category.name) }}">
-                                <button class="btn btn-default">
-                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                </button>
-                            </a>
-                            <a href="{{ url_for('deleteCategory', category_x=category.name) }}">
-                                <button class="btn btn-default delete">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-            </a>
-        {% endfor %}
+</a>
+{% endfor %}

@@ -1,38 +1,39 @@
-    <div class="row">
-        <div class="col-xs-10" style="padding: 5px;">
-            <h2>Edit Item: {{ item.name }}</h2>
-        </div>
+<div class="row">
+    <div class="col-xs-10" style="padding: 5px;">
+        <h2>Edit Item: {{ item.name }}</h2>
     </div>
-    <div class="row">
-        <div class="col-xs-12 padding-top">
-            <form action="#" method="post">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" maxlength="100" name="name" value="{{ item.name }}" required>
-                    <label for="description">Description:</label>
-                    <textarea class="form-control" maxlength="250" rows="10" name="description">{{item.description }}</textarea>
-                    <label for="category">Category:</label>
-                    <select name="category">
-                        {% for cat in categories %}
-                            {% if cat == category %}
-                                <option value="{{ cat.id }}" selected>{{ cat.name }}</option>
-                            {% else %}
-                                <option value="{{ cat.id }}">{{ cat.name }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                    <div class="padding-bottom"></div>
-                    <button class="btn btn-default" id="submit">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                        Edit Item
+</div>
+<div class="row">
+    <div class="col-xs-12 padding-top">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="form-control" maxlength="100" name="name" required type="text" value="{{ item.name }}">
+                <label for="description">Description:</label>
+                <textarea class="form-control" maxlength="250" name="description"
+                          rows="10">{{item.description }}</textarea>
+                <label for="category">Category:</label>
+                <select name="category">
+                    {% for cat in categories %}
+                    {% if cat == category %}
+                    <option selected value="{{ cat.id }}">{{ cat.name }}</option>
+                    {% else %}
+                    <option value="{{ cat.id }}">{{ cat.name }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <div class="padding-bottom"></div>
+                <button class="btn btn-default" id="submit">
+                    <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+                    Edit Item
+                </button>
+                <a href="{{ url_for('showItem', category_x=item.category.name, item_x=item.name) }}">
+                    <button class="btn btn-default delete" type="button">
+                        <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                        Cancel
                     </button>
-                    <a href="{{ url_for('showItem', category_x=item.category.name, item_x=item.name) }}">
-                        <button type="button" class="btn btn-default delete">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            Cancel
-                        </button>
-                    </a>
-                </div>
-            </form>
-        </div>
+                </a>
+            </div>
+        </form>
     </div>
+</div>

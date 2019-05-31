@@ -1,26 +1,26 @@
-    <div class="row">
-        <div class="col-xs-10" style="padding: 5px;">
-            <h2>Add New Category:</h2>
-        </div>
+<div class="row">
+    <div class="col-xs-10" style="padding: 5px;">
+        <h2>Add New Category:</h2>
     </div>
-    <div class="row">
-        <div class="col-xs-8 padding-top">
-            <form action="#" method="post">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" maxlength="100" name="name" required>
-                    <div class="padding-bottom"></div>
-                    <button class="btn btn-default" id="submit">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        Add Category
+</div>
+<div class="row">
+    <div class="col-xs-8 padding-top">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="form-control" maxlength="100" name="name" required type="text">
+                <div class="padding-bottom"></div>
+                <button class="btn btn-default" id="submit">
+                    <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
+                    Add Category
+                </button>
+                <a href="{{ url_for('showCatalog') }}">
+                    <button class="btn btn-default delete" type="button">
+                        <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                        Cancel
                     </button>
-                    <a href="{{ url_for('showCatalog') }}">
-                        <button type="button" class="btn btn-default delete">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            Cancel
-                        </button>
-                    </a>
-                </div>
-            </form>
-        </div>
+                </a>
+            </div>
+        </form>
     </div>
+</div>
