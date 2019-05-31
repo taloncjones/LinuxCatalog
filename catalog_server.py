@@ -86,6 +86,13 @@ def disconnect():
 # API functions
 ###
 
+@app.route('/JSON')
+@app.route('/catalog/JSON')
+
+@app.route('/catalog/<category_x>/JSON')
+@app.route('/catalog/<category_x>/items/JSON')
+
+@app.route('/catalog/<category_x>/<item_x>/JSON')
 
 ###
 # Table search function
