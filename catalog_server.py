@@ -112,6 +112,7 @@ def showItemJSON(category_x, item_x):
 
 # This function takes a table name and id_or_name variable (int or string) and looks up based on id or name
 # If any of the look ups fail, 404 is returned
+# Optional cat_id parameter, limits searches to category_id=cat_id in case of duplicate item names
 def getTableObject(table, id_or_name, cat_id=''):
     if str(id_or_name).isdigit():
         # If int, look up based on id
