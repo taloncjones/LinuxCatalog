@@ -75,10 +75,10 @@ def disconnect():
         del login_session['picture']
         del login_session['user_id']
         del login_session['provider']
-        flash("You have successfully been logged out.")
+        flash("You have successfully been logged out.", 'success')
         return redirect(url_for('showCatalog'))
     else:
-        flash("You were not logged in")
+        flash("You were not logged in", 'error')
         return redirect(url_for('showCatalog'))
 
 
@@ -204,7 +204,7 @@ def newCategory():
             newCategory = Category(name=name, user_id=login_session['user_id'])
             session.add(newCategory)
             session.commit()
-            flash('New Category %s Successfully Created!' % newCategory.name)
+            flash('New Category %s Successfully Created!' % newCategory.name, 'success')
         return redirect(url_for('showCategory', category_x=name))
     else:
         categories = session.query(Category).all()
@@ -286,7 +286,7 @@ def newItem(category_x):
                 user_id=login_session['user_id'])
             session.add(newItem)
             session.commit()
-            flash('New Item %s  Successfully Created' % (newItem.name))
+            flash('New Item %s  Successfully Created' % (newItem.name), 'success')
         return redirect(url_for('showItem', category_x=category.name, item_x=request.form['name']))
     else:
         items = session.query(Item).filter_by(category_id=category.id).all()
@@ -411,7 +411,7 @@ def fbconnect():
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
 
-    flash("Now logged in as %s" % login_session['username'])
+    flash("Now logged in as %s" % login_session['username'], 'success')
     return output
 
 
