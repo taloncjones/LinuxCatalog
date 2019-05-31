@@ -32,7 +32,9 @@ class Category(Base):
     @property
     def serialize(self):
         return {
-            #JSON info here
+            'id': self.id,
+            'name': self.name,
+            'user_id': self.user_id
         }
 
 # Create Item entry with the following info and table relationships
@@ -51,7 +53,11 @@ class Item(Base):
     @property
     def serialize(self):
         return {
-            #JSON info here
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'category_id': self.category_id,
+            'user_id': self.user_id
         }
 
 # Create database with name x. Change x to desired db name
