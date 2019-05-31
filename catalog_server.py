@@ -75,10 +75,10 @@ def disconnect():
         del login_session['picture']
         del login_session['user_id']
         del login_session['provider']
-        flash("You have successfully been logged out.", 'success')
+        flash("You have successfully been logged out.", 'alert alert-success')
         return redirect(url_for('showCatalog'))
     else:
-        flash("You were not logged in", 'error')
+        flash("You were not logged in", 'alert alert-danger')
         return redirect(url_for('showCatalog'))
 
 
@@ -199,12 +199,12 @@ def newCategory():
         try:  # Looks for existing category matching 'name'
             category = session.query(Category).filter_by(name=name).one()
             # If found, flash message is given and redirect called
-            flash('Category Already Exists!', 'error')
+            flash('Category Already Exists!', 'alert alert-danger')
         except:  # If not found, except is triggered and object added
             newCategory = Category(name=name, user_id=login_session['user_id'])
             session.add(newCategory)
             session.commit()
-            flash('New Category %s Successfully Created!' % newCategory.name, 'success')
+            flash('New Category %s Successfully Created!' % newCategory.name, 'alert alert-success')
         return redirect(url_for('showCategory', category_x=name))
     else:
         categories = session.query(Category).all()
@@ -221,14 +221,14 @@ def editCategory(category_x):
     if request.method == 'POST':
         try:  # Look up for existing object
             category = getTableObject(Category, request.form['name'])
-            flash('Category Already Exists!', 'error')
+            flash('Category Already Exists!', 'alert alert-danger')
         except:  # If not found, make changes
             if request.form['name']:
                 editCategory.name = request.form['name']
                 session.add(editCategory)
                 session.commit()
                 flash('Category Successfully Renamed: %s' %
-                      editCategory.name, 'success')
+                      editCategory.name, 'alert alert-success')
         return redirect(url_for('showCategory', category_x=editCategory.name))
     else:
         categories = session.query(Category).all()
@@ -249,7 +249,7 @@ def deleteCategory(category_x):
         for item in deleteCategoryItems:  # For any items in deleteCategory, delete
             session.delete(item)
         session.commit()
-        flash('Category %s Deleted!' % deleteCategory.name, 'success')
+        flash('Category %s Deleted!' % deleteCategory.name, 'alert alert-success')
         return redirect(url_for('showCatalog'))
     else:
         return render_template('deleteCategory.html', category=deleteCategory, items=deleteCategoryItems)
@@ -277,7 +277,7 @@ def newItem(category_x):
         try:  # Look up item, if found trigger flash and redirect
             item = session.query(Item).filter_by(
                 name=request.form['name']).filter_by(category_id=category.id).one()
-            flash('Item Already Exists!', 'error')
+            flash('Item Already Exists!', 'alert alert-danger')
         except:  # If not found, add item
             newItem = Item(
                 name=request.form['name'],
@@ -286,7 +286,7 @@ def newItem(category_x):
                 user_id=login_session['user_id'])
             session.add(newItem)
             session.commit()
-            flash('New Item %s  Successfully Created' % (newItem.name), 'success')
+            flash('New Item %s  Successfully Created' % (newItem.name), 'alert alert-success')
         return redirect(url_for('showItem', category_x=category.name, item_x=request.form['name']))
     else:
         items = session.query(Item).filter_by(category_id=category.id).all()
@@ -304,7 +304,7 @@ def editItem(category_x, item_x):
         try:  # Duplicate item lookup
             item = session.query(Item).filter_by(name=request.form['name']).filter_by(
                 category_id=request.form['category']).one()
-            flash('Item Already Exists!', 'error')
+            flash('Item Already Exists!', 'alert alert-danger')
         except:  # If not found
             if request.form['name']:
                 editItem.name = request.form['name']
@@ -314,7 +314,7 @@ def editItem(category_x, item_x):
                 editItem.category_id = request.form['category']
             session.add(editItem)
             session.commit()
-            flash('Item Successfully Updated!', 'success')
+            flash('Item Successfully Updated!', 'alert alert-success')
         return redirect(url_for('showItem', category_x=editItem.category.name, item_x=editItem.name))
     else:
         categories = session.query(Category).all()
@@ -332,7 +332,7 @@ def deleteItem(category_x, item_x):
     if request.method == 'POST':  # Delete item and commit
         session.delete(deleteItem)
         session.commit()
-        flash('Item %s Deleted!' % deleteItem.name, 'success')
+        flash('Item %s Deleted!' % deleteItem.name, 'alert alert-success')
         return redirect(url_for('showCategory', category_x=category_x))
     else:
         items = session.query(Item).filter_by(category_id=category.id).all()
@@ -411,7 +411,7 @@ def fbconnect():
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
 
-    flash("Now logged in as %s" % login_session['username'], 'success')
+    flash("Now logged in as %s" % login_session['username'], 'alert alert-success')
     return output
 
 
