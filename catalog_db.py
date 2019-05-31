@@ -4,11 +4,12 @@
 # Created by Talon Jones
 
 from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
 
 Base = declarative_base()
+
 
 # Create User object with id, username, picture, and email
 class User(Base):
@@ -18,6 +19,7 @@ class User(Base):
     name = Column(String(32), index=True)
     picture = Column(String)
     email = Column(String)
+
 
 # Create Category entry with id, name, user_id (from User), and table relationship (User)
 class Category(Base):
@@ -36,6 +38,7 @@ class Category(Base):
             'name': self.name,
             'user_id': self.user_id
         }
+
 
 # Create Item entry with the following info and table relationships
 class Item(Base):
@@ -59,6 +62,7 @@ class Item(Base):
             'category_id': self.category_id,
             'user_id': self.user_id
         }
+
 
 # Create database with name x. Change x to desired db name
 engine = create_engine('sqlite:///itemcatalog.db')
