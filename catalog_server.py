@@ -89,7 +89,8 @@ def disconnect():
 @app.route('/JSON')
 @app.route('/catalog/JSON')
 def showCatalogJSON():
-    return
+    categories = session.query(Category).all()
+    return jsonify(categories=[c.serialize for c in categories])
 
 @app.route('/catalog/<category_x>/JSON')
 @app.route('/catalog/<category_x>/items/JSON')
