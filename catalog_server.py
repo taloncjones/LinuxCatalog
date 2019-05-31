@@ -101,7 +101,9 @@ def showCategoryJSON(category_x):
 
 @app.route('/catalog/<category_x>/<item_x>/JSON')
 def showItemJSON(category_x, item_x):
-    return
+    category = getTableObject(Category, category_x)
+    item = getTableObject(Item, item_x, category.id)
+    return jsonify(item=item.serialize)
 
 
 ###
