@@ -88,11 +88,18 @@ def disconnect():
 
 @app.route('/JSON')
 @app.route('/catalog/JSON')
+def showCatalogJSON():
+    return
 
 @app.route('/catalog/<category_x>/JSON')
 @app.route('/catalog/<category_x>/items/JSON')
+def showCategoryJSON(category_x):
+    return
 
 @app.route('/catalog/<category_x>/<item_x>/JSON')
+def showItemJSON(category_x, item_x):
+    return
+
 
 ###
 # Table search function
