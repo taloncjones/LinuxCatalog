@@ -100,6 +100,7 @@ def showCategoryJSON(category_x):
 
 
 @app.route('/catalog/<category_x>/<item_x>/JSON')
+@app.route('/catalog/<category_x>/items/<item_x>/JSON')
 def showItemJSON(category_x, item_x):
     category = getTableObject(Category, category_x)
     item = getTableObject(Item, item_x, category.id)
