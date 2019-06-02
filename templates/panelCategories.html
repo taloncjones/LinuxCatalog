@@ -25,12 +25,13 @@
 {% for c in categories %}
     <a href="{{ url_for('showCategory', category_x=c.name) }}">
         <div class="row category-list">
-            {% if c.name == category.name %}
-                <div class="col-xs-8 select">
-            {% else %}
-                <div class="col-xs-8">
-            {% endif %}
-            <h3>{{ c.name }}</h3>
+            <div class="col-xs-8">
+                {% if c.name == category.name %}
+                    <h3 class="select">
+                {% else %}
+                    <h3>
+                {% endif %}
+                {{ c.name }}</h3>
             </div>
             {% if c.user_id == session.user_id %}
                 <div class="col-xs-4">
@@ -48,6 +49,6 @@
                     </div>
                 </div>
             {% endif %}
-            </div>
+        </div>
     </a>
 {% endfor %}
