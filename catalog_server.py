@@ -6,12 +6,10 @@
 import httplib2
 import json
 import random
-import requests
 import string
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response, abort
 from flask import session as login_session
 from functools import wraps
-from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
