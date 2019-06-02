@@ -1,33 +1,35 @@
 {% extends "main.html" %}
 {% block content %}
+{% include "banner.html" %}
+{% include "flashMessage.html" %}
 
-<div>
-    <fb:login-button onlogin="sendTokenToServer();" scope="public_profile, email">
-        <a href='jsavascript:sendTokenToServer()'>Login with Facebook</a>
-    </fb:login-button>
-    <div>
+<div class="row">
+    <div class="col-xs-6">
+        <h2 class="text-center">Facebook</h2>
+        <fb:login-button onlogin="sendTokenToServer();" scope="public_profile, email">
+            <a href='jsavascript:sendTokenToServer()'>Login with Facebook</a>
+        </fb:login-button>
+    </div>
+    <div class="col-xs-6">
+        <h2 class="text-center">GitHub</h2>
+        <a id="github-button" class="btn btn-block btn-social btn-github">
+          <i class="fa fa-github"></i> Sign in with Github
+        </a>
+    </div>
+</div>
 
-        <!--FACEBOOK SIGN IN -->
-        <script>
-            window.fbAsyncInit = function () {
-                FB.init({
-                    appId: '358828311404435',
-                    cookie: true, // enable cookies to allow the server to access
-                    // the session
-                    xfbml: true, // parse social plugins on this page
-                    version: 'v3.3' // use version 2.2
-                });
-            };
 
-            // Load the SDK asynchronously
-            (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
+<!--FACEBOOK SIGN IN -->
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '358828311404435',
+            cookie: true, // enable cookies to allow the server to access
+            // the session
+            xfbml: true, // parse social plugins on this page
+            version: 'v3.3' // use version 2.2
+        });
+    };
 
             // Here we run a very simple test of the Graph API after login is
             // successful.  See statusChangeCallback() for when this call is made.
@@ -59,5 +61,4 @@
     </div>
     <!--END FACEBOOK SIGN IN -->
 
-    {% endblock %}
-</div>
+{% endblock %}
