@@ -3,6 +3,10 @@
     font-weight: 700;
 }
 
+body {
+    background-color: #04050F;
+}
+
 h1 {
     font-family: "Helvetica Neue Light", Roboto, Helvetica, Arial, sans-serif;
     font-size: 50px;
@@ -13,15 +17,23 @@ h1 {
 
 h2 {
     font-size: 24px;
-    color: #42C3C9;
+    color: white;
     line-height: 29px;
 }
 
 h3 {
     font-size: 18px;
-    color: #4A4A4A;
+    color: lightgrey;
     line-height: 23px;
     display: inline-block;
+}
+
+h3 .select {
+    color: #136EBF;
+}
+
+h4 {
+    color: darkgrey;
 }
 
 p {
@@ -44,6 +56,11 @@ a {
     line-height: 17px;
 }
 
+label {
+    color: lightgrey;
+    padding-top: 5px;
+}
+
 .padding-top {
     padding-top: 30px;
 }
@@ -57,15 +74,16 @@ a {
 }
 
 .btn {
+    background-color: transparent;
     padding: 15px;
     margin: 0;
-    border-color: #9FB80A;
+    border-color: darkgrey;
     border-width: 2px;
-    color: #9FB80A;
+    color: darkgrey;
 }
 
 .btn:hover {
-    border-color: #9FB80A;
+    border-color: darkgrey;
 }
 
 .btn.delete {
@@ -107,13 +125,14 @@ a {
 }
 
 .category-list {
-    background-color: #F0F0F0;
+    background-color: transparent;
+    border-bottom: 1px solid lightgrey;
+    border-top: 1px solid lightgrey;
     padding: 20px;
 }
 
-.category-list:hover {
-    background-color: #e1e17f;
-    padding: 20px;
+.category-list:hover h3 {
+    color: dimgrey;
 }
 
 .creator {
