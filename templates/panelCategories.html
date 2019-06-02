@@ -26,7 +26,7 @@
     <a href="{{ url_for('showCategory', category_x=c.name) }}">
         <div class="row category-list">
             <div class="col-xs-8">
-                {% if c.name == category.name %}
+                {% if category and c.name == category.name %}
                     <h3 class="select">
                 {% else %}
                     <h3>
