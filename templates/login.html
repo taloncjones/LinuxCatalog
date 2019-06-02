@@ -72,10 +72,16 @@
 
 <!--GitHub Sign In -->
 <script>
-    OAuth.initialize('gZIaMGVudqvuu_UdyGFsGEwKpvU')
-    OAuth.popup('github').done(function(result) {
-        console.log(result)
-        // do some stuff with result
+    $('#github-button').on('click', function() {
+        // Initialize with your OAuth.io app public key
+        OAuth.initialize('HwAr2OtSxRgEEnO2-JnYjsuA3tc');
+        // Use popup for oauth
+        // Alternative is redirect
+        OAuth.popup('github').then(github => {
+            console.log(github);
+            // Retrieves user data from oauth provider
+            console.log(github.me());
+        });
     })
 </script>
 <!--End GitHub Sign In -->
