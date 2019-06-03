@@ -1,17 +1,17 @@
 {% extends "main.html" %}
 {% block content %}
-{% include "banner.html" %}
+    {% include "banner.html" %}
 
-{% include "flashMessage.html" %}
+    {% include "flashMessage.html" %}
 
-<div class="row">
-    <div class="col-xs-5">
-        {% include "panelItems.html" %}
+    <div class="row">
+        <div class="col-xs-5">
+            {% include "panelItems.html" %}
+        </div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-6">
+            {% include "panelNewItem.html" %}
+        </div>
     </div>
-    <div class="col-xs-1"></div>
-    <div class="col-xs-6">
-        {% include "panelNewItem.html" %}
-    </div>
-</div>
 
 {% endblock %}

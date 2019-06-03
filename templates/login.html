@@ -1,82 +1,82 @@
 {% extends "main.html" %}
 {% block content %}
-{% include "banner.html" %}
-{% include "flashMessage.html" %}
+    {% include "banner.html" %}
+    {% include "flashMessage.html" %}
 
-<div class="row">
-    <div class="col-xs-6">
-        <div class="row">
-            <h2 class="text-center col-xs-12">Facebook</h2>
-            <div class="text-center col-xs-12">
-                <fb:login-button onlogin="sendTokenToServer();" scope="public_profile, email">
-                    <a href='jsavascript:sendTokenToServer()'>Login with Facebook</a>
-                </fb:login-button>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="row">
+                <h2 class="text-center col-xs-12">Facebook</h2>
+                <div class="text-center col-xs-12">
+                    <fb:login-button onlogin="sendTokenToServer();" scope="public_profile, email">
+                        <a href='jsavascript:sendTokenToServer()'>Login with Facebook</a>
+                    </fb:login-button>
+                </div>
             </div>
         </div>
+        <!--
+        <div class="col-xs-6">
+            <h2 class="text-center">GitHub</h2>
+            <a id="github-button" class="btn btn-block btn-social btn-github">
+              <i class="fa fa-github"></i> Sign in with Github
+            </a>
+        </div>
+        -->
     </div>
-    <!--
-    <div class="col-xs-6">
-        <h2 class="text-center">GitHub</h2>
-        <a id="github-button" class="btn btn-block btn-social btn-github">
-          <i class="fa fa-github"></i> Sign in with Github
-        </a>
-    </div>
-    -->
-</div>
 
 
-<!--FACEBOOK SIGN IN -->
-<script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '358828311404435',
-            cookie: true, // enable cookies to allow the server to access
-            // the session
-            xfbml: true, // parse social plugins on this page
-            version: 'v3.3' // use version 2.2
-        });
-    };
-
-    // Load the SDK asynchronously
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    // Here we run a very simple test of the Graph API after login is
-    // successful.  See statusChangeCallback() for when this call is made.
-    function sendTokenToServer() {
-        var access_token = FB.getAuthResponse()['accessToken'];
-        console.log(access_token);
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function (response) {
-            console.log('Successful login for: ' + response.name);
-            $.ajax({
-                type: 'POST',
-                url: '/fbconnect?state={{STATE}}',
-                processData: false,
-                data: access_token,
-                contentType: 'application/octet-stream; charset=utf-8',
-                success: function (result) {
-                    // Handle or verify the server response if necessary.
-                    if (result) {
-                        $('#result').html('Login Successful!</br>' + result + '</br>Redirecting...');
-                        window.location.href = "/catalog";
-                    } else {
-                        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
-                    }
-                }
+    <!--FACEBOOK SIGN IN -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '358828311404435',
+                cookie: true, // enable cookies to allow the server to access
+                // the session
+                xfbml: true, // parse social plugins on this page
+                version: 'v3.3' // use version 2.2
             });
-        });
-    }
-</script>
-<!--END FACEBOOK SIGN IN -->
+        };
 
-<!--GitHub Sign In
+        // Load the SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // Here we run a very simple test of the Graph API after login is
+        // successful.  See statusChangeCallback() for when this call is made.
+        function sendTokenToServer() {
+            var access_token = FB.getAuthResponse()['accessToken'];
+            console.log(access_token);
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function (response) {
+                console.log('Successful login for: ' + response.name);
+                $.ajax({
+                    type: 'POST',
+                    url: '/fbconnect?state={{STATE}}',
+                    processData: false,
+                    data: access_token,
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    success: function (result) {
+                        // Handle or verify the server response if necessary.
+                        if (result) {
+                            $('#result').html('Login Successful!</br>' + result + '</br>Redirecting...');
+                            window.location.href = "/catalog";
+                        } else {
+                            $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                        }
+                    }
+                });
+            });
+        }
+    </script>
+    <!--END FACEBOOK SIGN IN -->
+
+    <!--GitHub Sign In
 <script>
     $('#github-button').on('click', function() {
         // Initialize with your OAuth.io app public key
