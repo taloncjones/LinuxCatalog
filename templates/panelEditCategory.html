@@ -8,16 +8,19 @@
         <form action="#" method="post">
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input class="form-control" maxlength="100" name="name" required type="text"
+                <input class="form-control" maxlength="100" name="name"
+                       required type="text"
                        value="{{ category.name }}">
                 <div class="padding-bottom"></div>
                 <button class="btn btn-default" id="submit">
-                    <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+                    <span aria-hidden="true"
+                          class="glyphicon glyphicon-ok"></span>
                     Edit Category
                 </button>
                 <a href="{{ url_for('showCategory', category_x=category.name) }}">
                     <button class="btn btn-default delete" type="button">
-                        <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                        <span aria-hidden="true"
+                              class="glyphicon glyphicon-remove"></span>
                         Cancel
                     </button>
                 </a>

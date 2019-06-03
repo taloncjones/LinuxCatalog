@@ -9,13 +9,16 @@
             <div class="form-group">
                 <h3>Are you sure you wish to delete {{ item.name }}?</h3>
                 <div class="padding-bottom"></div>
-                <button class="btn btn-default delete" id="submit" type="submit">
-                    <span aria-hidden="true" class="glyphicon glyphicon-trash"></span>
+                <button class="btn btn-default delete" id="submit"
+                        type="submit">
+                    <span aria-hidden="true"
+                          class="glyphicon glyphicon-trash"></span>
                     Delete Category
                 </button>
                 <a href="{{ url_for('showItem', category_x=category.name, item_x=item.name) }}">
                     <button class="btn btn-default delete" type="button">
-                        <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                        <span aria-hidden="true"
+                              class="glyphicon glyphicon-remove"></span>
                         Cancel
                     </button>
                 </a>

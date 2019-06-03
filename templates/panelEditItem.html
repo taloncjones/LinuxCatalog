@@ -8,15 +8,18 @@
         <form action="#" method="post">
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input class="form-control" maxlength="100" name="name" required type="text" value="{{ item.name }}">
+                <input class="form-control" maxlength="100" name="name"
+                       required type="text" value="{{ item.name }}">
                 <label for="description">Description:</label>
-                <textarea class="form-control" maxlength="250" name="description"
+                <textarea class="form-control" maxlength="250"
+                          name="description"
                           rows="10">{{ item.description }}</textarea>
                 <label for="category">Category:</label>
                 <select name="category">
                     {% for cat in categories %}
                         {% if cat == category %}
-                            <option selected value="{{ cat.id }}">{{ cat.name }}</option>
+                            <option selected
+                                    value="{{ cat.id }}">{{ cat.name }}</option>
                         {% else %}
                             <option value="{{ cat.id }}">{{ cat.name }}</option>
                         {% endif %}
@@ -24,12 +27,14 @@
                 </select>
                 <div class="padding-bottom"></div>
                 <button class="btn btn-default" id="submit">
-                    <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+                    <span aria-hidden="true"
+                          class="glyphicon glyphicon-ok"></span>
                     Edit Item
                 </button>
                 <a href="{{ url_for('showItem', category_x=item.category.name, item_x=item.name) }}">
                     <button class="btn btn-default delete" type="button">
-                        <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                        <span aria-hidden="true"
+                              class="glyphicon glyphicon-remove"></span>
                         Cancel
                     </button>
                 </a>

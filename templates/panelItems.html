@@ -10,7 +10,8 @@
         {% if session.user_id and category %}
             <a href="{{ url_for('newItem', category_x=category.name) }}">
                 <button class="btn btn-default" id="new-item">
-                    <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
+                    <span aria-hidden="true"
+                          class="glyphicon glyphicon-plus"></span>
                     New Item
                 </button>
             </a>
@@ -28,15 +29,18 @@
             </div>
             {% if item.user_id == session.user_id %}
                 <div class="col-xs-3">
-                    <div aria-label="Edit and Delete Buttons" class="btn-group" role="group">
+                    <div aria-label="Edit and Delete Buttons" class="btn-group"
+                         role="group">
                         <a href="{{ url_for('editItem', category_x=item.category.name, item_x=item.name) }}">
                             <button class="btn btn-default">
-                                <span aria-hidden="true" class="glyphicon glyphicon-edit"></span>
+                                <span aria-hidden="true"
+                                      class="glyphicon glyphicon-edit"></span>
                             </button>
                         </a>
                         <a href="{{ url_for('deleteItem', category_x=item.category.name, item_x=item.name) }}">
                             <button class="btn btn-default delete">
-                                <span aria-hidden="true" class="glyphicon glyphicon-trash"></span>
+                                <span aria-hidden="true"
+                                      class="glyphicon glyphicon-trash"></span>
                             </button>
                         </a>
                     </div>

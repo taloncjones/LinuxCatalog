@@ -7,7 +7,8 @@ import httplib2
 import json
 import random
 import string
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response, abort
+from flask import Flask, render_template, request, redirect, url_for, flash, \
+    jsonify, make_response, abort
 from flask import session as login_session
 from functools import wraps
 from sqlalchemy import create_engine
@@ -57,7 +58,8 @@ def showLogin():
 
 
 # Disconnect 'page'.
-# When user clicks 'Log Out', clears login_session info and redirects to catalog page.
+# When user clicks 'Log Out', clears login_session info and redirects to
+# catalog page.
 @app.route('/disconnect')
 def disconnect():
     if 'provider' in login_session:
@@ -111,9 +113,11 @@ def showItemJSON(category_x, item_x):
 # Table search function
 ###
 
-# This function takes a table name and id_or_name variable (int or string) and looks up based on id or name
+# This function takes a table name and id_or_name variable (int or string)
+# and looks up based on id or name
 # If any of the look ups fail, 404 is returned
-# Optional cat_id parameter, limits searches to category_id=cat_id in case of duplicate item names
+# Optional cat_id parameter, limits searches to category_id=cat_id in case
+# of duplicate item names
 def getTableObject(table, id_or_name, cat_id=''):
     if str(id_or_name).isdigit():
         # If int, look up based on id
@@ -142,10 +146,12 @@ def getTableObject(table, id_or_name, cat_id=''):
 # User functions
 ###
 
-# Create a new user with the username, email, and picture pulled from login_session
+# Create a new user with the username, email, and picture pulled from
+# login_session
 def createUser(login_session):
     newUser = User(username=login_session['username'],
-                   email=login_session['email'], picture=login_session['picture'])
+                   email=login_session['email'],
+                   picture=login_session['picture'])
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
@@ -192,7 +198,8 @@ def showCategory(category_x):
     categories = session.query(Category).all()
     category = getTableObject(Category, category_x)
     items = session.query(Item).filter_by(category_id=category.id).all()
-    return render_template('catalog.html', categories=categories, category=category, items=items)
+    return render_template('catalog.html', categories=categories,
+                           category=category, items=items)
 
 
 # New Category
@@ -209,7 +216,8 @@ def newCategory():
             newCategory = Category(name=name, user_id=login_session['user_id'])
             session.add(newCategory)
             session.commit()
-            flash('New Category %s Successfully Created!' % newCategory.name, 'alert alert-success')
+            flash('New Category %s Successfully Created!' % newCategory.name,
+                  'alert alert-success')
         return redirect(url_for('showCategory', category_x=name))
     else:
         categories = session.query(Category).all()
@@ -223,7 +231,8 @@ def editCategory(category_x):
     editCategory = getTableObject(Category, category_x)
     # If user is not creator
     if editCategory.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
+        return "<script>function myFunction() {alert('You are not " \
+               "authorized!')}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         try:  # Look up for existing object
             category = getTableObject(Category, request.form['name'])
@@ -238,7 +247,8 @@ def editCategory(category_x):
         return redirect(url_for('showCategory', category_x=editCategory.name))
     else:
         categories = session.query(Category).all()
-        return render_template('editCategory.html', categories=categories, category=editCategory)
+        return render_template('editCategory.html', categories=categories,
+                               category=editCategory)
 
 
 # Delete Category
@@ -247,19 +257,24 @@ def editCategory(category_x):
 def deleteCategory(category_x):
     deleteCategory = getTableObject(Category, category_x)
     if deleteCategory.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
-    # Check if category is empty for render_template and delete all items for loop
+        return "<script>function myFunction() {alert('You are not " \
+               "authorized!')}</script><body onload='myFunction()'>"
+    # Check if category is empty for render_template and delete all items
+    # for loop
     deleteCategoryItems = session.query(Item).filter_by(
         category_id=deleteCategory.id).all()
     if request.method == 'POST':
         session.delete(deleteCategory)
-        for item in deleteCategoryItems:  # For any items in deleteCategory, delete
+        for item in deleteCategoryItems:  # For any items in deleteCategory,
+            # delete
             session.delete(item)
         session.commit()
-        flash('Category %s Deleted!' % deleteCategory.name, 'alert alert-success')
+        flash('Category %s Deleted!' % deleteCategory.name,
+              'alert alert-success')
         return redirect(url_for('showCatalog'))
     else:
-        return render_template('deleteCategory.html', category=deleteCategory, items=deleteCategoryItems)
+        return render_template('deleteCategory.html', category=deleteCategory,
+                               items=deleteCategoryItems)
 
 
 ###
@@ -273,7 +288,8 @@ def showItem(category_x, item_x):
     items = session.query(Item).filter_by(category_id=category.id).all()
     item = getTableObject(Item, item_x, category.id)
     creator = getTableObject(User, item.user_id)
-    return render_template('item.html', category=category, items=items, item=item, creator=creator)
+    return render_template('item.html', category=category, items=items,
+                           item=item, creator=creator)
 
 
 # New Item
@@ -284,7 +300,8 @@ def newItem(category_x):
     if request.method == 'POST':
         try:  # Look up item, if found trigger flash and redirect
             item = session.query(Item).filter_by(
-                name=request.form['name']).filter_by(category_id=category.id).one()
+                name=request.form['name']).filter_by(
+                category_id=category.id).one()
             flash('Item Already Exists!', 'alert alert-danger')
         except:  # If not found, add item
             newItem = Item(
@@ -294,8 +311,10 @@ def newItem(category_x):
                 user_id=login_session['user_id'])
             session.add(newItem)
             session.commit()
-            flash('New Item %s  Successfully Created' % newItem.name, 'alert alert-success')
-        return redirect(url_for('showItem', category_x=category.name, item_x=request.form['name']))
+            flash('New Item %s  Successfully Created' % newItem.name,
+                  'alert alert-success')
+        return redirect(url_for('showItem', category_x=category.name,
+                                item_x=request.form['name']))
     else:
         items = session.query(Item).filter_by(category_id=category.id).all()
         return render_template('newItem.html', category=category, items=items)
@@ -308,12 +327,14 @@ def editItem(category_x, item_x):
     category = getTableObject(Category, category_x)
     editItem = getTableObject(Item, item_x, category.id)
     if editItem.user_id != login_session['user_id']:  # If not creator
-        return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
+        return "<script>function myFunction() {alert('You are not " \
+               "authorized!')}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         try:  # Duplicate item lookup
             if request.form['name'] == editItem.name:
                 raise Exception()
-            item = session.query(Item).filter_by(name=request.form['name']).filter_by(
+            item = session.query(Item).filter_by(
+                name=request.form['name']).filter_by(
                 category_id=request.form['category']).one()
             flash('Item Already Exists!', 'alert alert-danger')
         except:  # If not found
@@ -326,11 +347,13 @@ def editItem(category_x, item_x):
             session.add(editItem)
             session.commit()
             flash('Item Successfully Updated!', 'alert alert-success')
-        return redirect(url_for('showItem', category_x=editItem.category.name, item_x=editItem.name))
+        return redirect(url_for('showItem', category_x=editItem.category.name,
+                                item_x=editItem.name))
     else:
         categories = session.query(Category).all()
         items = session.query(Item).filter_by(category_id=category.id).all()
-        return render_template('editItem.html', categories=categories, category=category, items=items, item=editItem)
+        return render_template('editItem.html', categories=categories,
+                               category=category, items=items, item=editItem)
 
 
 # Delete Item
@@ -340,7 +363,8 @@ def deleteItem(category_x, item_x):
     category = getTableObject(Category, category_x)
     deleteItem = getTableObject(Item, item_x, category.id)
     if deleteItem.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
+        return "<script>function myFunction() {alert('You are not " \
+               "authorized!')}</script><body onload='myFunction()'>"
     if request.method == 'POST':  # Delete item and commit
         session.delete(deleteItem)
         session.commit()
@@ -348,7 +372,8 @@ def deleteItem(category_x, item_x):
         return redirect(url_for('showCategory', category_x=category_x))
     else:
         items = session.query(Item).filter_by(category_id=category.id).all()
-        return render_template('deleteItem.html', category=category, items=items, item=deleteItem)
+        return render_template('deleteItem.html', category=category,
+                               items=items, item=deleteItem)
 
 
 ###
@@ -356,7 +381,8 @@ def deleteItem(category_x, item_x):
 ###
 
 # Facebook login handler
-# Takes POST message sent via JS in login.html page, triggered when user clicks 'Log in with Facebook'
+# Takes POST message sent via JS in login.html page, triggered when user
+# clicks 'Log in with Facebook'
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
     if request.args.get('state') != login_session['state']:
@@ -370,23 +396,26 @@ def fbconnect():
         'web']['app_id']
     app_secret = json.loads(
         open('fb_client_secrets.json', 'r').read())['web']['app_secret']
-    url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
-        app_id, app_secret, access_token)
+    url = 'https://graph.facebook.com/oauth/access_token?grant_type' \
+          '=fb_exchange_token&client_id=%s&client_secret=%s' \
+          '&fb_exchange_token=%s' % (app_id, app_secret, access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
 
     # Use token to get user info from API
     userinfo_url = "https://graph.facebook.com/v2.8/me"
     '''
-        Due to the formatting for the result from the server token exchange we have to
-        split the token first on commas and select the first index which gives us the key : value
-        for the server access token then we split it on colons to pull out the actual token value
-        and replace the remaining quotes with nothing so that it can be used directly in the graph
-        api calls
+        Due to the formatting for the result from the server token exchange
+        we have to split the token first on commas and select the first
+        index which gives us the key : value for the server access token
+        then we split it on colons to pull out the actual token value and
+        replace the remaining quotes with nothing so that it can be used
+        directly in the graph api calls
     '''
     token = result.split(',')[0].split(':')[1].replace('"', '')
 
-    url = 'https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,id,email' % token
+    url = 'https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,' \
+          'id,email' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     # print "url sent for API access:%s"% url
@@ -401,7 +430,8 @@ def fbconnect():
     login_session['access_token'] = token
 
     # Get user picture
-    url = 'https://graph.facebook.com/v2.8/me/picture?access_token=%s&redirect=0&height=200&width=200' % token
+    url = 'https://graph.facebook.com/v2.8/me/picture?access_token=%s' \
+          '&redirect=0&height=200&width=200' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
@@ -421,9 +451,12 @@ def fbconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ' " style = "width: 300px; height: 300px;border-radius: ' \
+              '150px;-webkit-border-radius: 150px;-moz-border-radius: ' \
+              '150px;"> '
 
-    flash("Now logged in as %s" % login_session['username'], 'alert alert-success')
+    flash("Now logged in as %s" % login_session['username'],
+          'alert alert-success')
     return output
 
 

@@ -21,7 +21,8 @@ class User(Base):
     email = Column(String)
 
 
-# Create Category entry with id, name, user_id (from User), and table relationship (User)
+# Create Category entry with id, name, user_id (from User), and table
+# relationship (User)
 class Category(Base):
     __tablename__ = 'category'
 
