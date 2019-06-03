@@ -311,6 +311,8 @@ def editItem(category_x, item_x):
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         try:  # Duplicate item lookup
+            if request.form['name'] == editItem.name:
+                raise Exception()
             item = session.query(Item).filter_by(name=request.form['name']).filter_by(
                 category_id=request.form['category']).one()
             flash('Item Already Exists!', 'alert alert-danger')
