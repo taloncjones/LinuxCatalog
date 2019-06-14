@@ -76,7 +76,7 @@ Generate ssh key files with `ssh-keygen` and transfer .pub file to server
 - Pull Project_Item_Catalog with `sudo git clone https://github.com/taloncjones/Project_Item_Catalog.git catalog`
     ##### Note: If updating to a different repository, update origin url with `sudo git remote set-url origin <url>`
 - Rename `catalog_server.py` to `__init__.py`
-- In all database update files (catalog_db.py, fakeitems.py, __init__.py) change:
+- In all database update files (catalog_db.py, fakeitems.py, \_\_init\_\_.py) change:
     ```
     engine = create_engine("sqlite:///catalog.db")
     to
