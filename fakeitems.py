@@ -6,9 +6,6 @@ from catalog_db import Category, Item, User, Base
 engine = create_engine('postgresql://catalog:supersecret@localhost/catalog')
 
 # Clear database
-Base.metadata.drop_all(engine)
-Base.metadata.create_all(engine)
-
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
