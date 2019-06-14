@@ -74,7 +74,7 @@ Generate ssh key files with `ssh-keygen` and transfer .pub file to server
 - Go to `/var/www`
 - Create catalog directory with `sudo mkdir catalog` and enter directory
 - Pull Project_Item_Catalog with `sudo git clone https://github.com/taloncjones/Project_Item_Catalog.git catalog`
-    ##### Note: If using a different repository, update origin url with `sudo git remote set-url origin <url>`
+    ##### Note: If updating to a different repository, update origin url with `sudo git remote set-url origin <url>`
 - Rename `catalog_server.py` to `__init__.py`
 - In all database update files (catalog_db.py, fakeitems.py, __init__.py) change:
     ```
