@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from catalog_db import Category, Item, User, Base
 
-engine = create_engine('sqlite:///itemcatalog.db')
+engine = create_engine('postgresql://catalog:supersecret@localhost/catalog')
 
 # Clear database
 Base.metadata.drop_all(engine)
