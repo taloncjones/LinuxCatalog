@@ -162,6 +162,11 @@ Generate ssh key files with `ssh-keygen` and transfer .pub file to server
     ```
 - Restart Apache with `sudo service apache2 restart`
 
+## Resources
+Running Flask application on Apache: [How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
+
+Configuring Apache to use SSL: [How To Create a Self-Signed SSL Certificate for Apache in Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-18-04)
+
 
 #
 # Original Project_Item_Catalog README from here on:
